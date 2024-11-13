@@ -111,3 +111,6 @@ yarn preview
 bun run preview
 ```
 
+## Questions?
+
+Just ping me on Bluesky[https://bsky.app/profile/filrakow.ski], [X](https://x.com/filrakowski), Linkedin[https://www.linkedin.com/in/filip-rakowski-a43671129/] or create an issue in this repo if you think others would benefit from having the answer to that questions being posted in public.

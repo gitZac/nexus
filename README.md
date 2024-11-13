@@ -30,6 +30,7 @@ eg. `DEPLOYED_STORE=butterfly` will deploy the `butterfly` site.
 - Global CSS override example with variables (`assets/css/variables.css`)
 - Example on how to use the same codebase and templateswith different underlying data models coming from different API's using normalizers (`server/api/*)`
 
+
 ## Setup
 
 Make sure to install dependencies:
@@ -46,6 +47,16 @@ yarn install
 
 # bun
 bun install
+```
+
+# Prequisite
+
+Choose the site you wnat to develop or build. Keep in mind that you might need to reload the dev server when you change it.
+
+Use the name of the directory from the `layers` folder instead of `{layer-name}`
+```
+//.env
+DEPLOYED_STORE={layer-name}
 ```
 
 ## Development Server
@@ -100,4 +111,3 @@ yarn preview
 bun run preview
 ```
 
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.

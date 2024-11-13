@@ -1,6 +1,6 @@
 # Nuxt Multisite Inheritance Example
 
-This emplate shows how to approach a problem of unifying multiple applications with a sginificant amount of shared functionalities on the UI/feature layer.
+This template shows how to approach a problem of unifying multiple applications with a sginificant amount of shared functionalities on the UI/feature layer.
 
 The goal of this template is to reuse as much as possible from the *base* application that is a common part and then easily override/extend the differentiating parts per site.
 
@@ -28,7 +28,7 @@ eg. `DEPLOYED_STORE=butterfly` will deploy the `butterfly` site.
 
 - File inheritance for all nuxt directories and files using layers
 - Global CSS override example with variables (`assets/css/variables.css`)
-- Example on how to use the same codebase and templateswith different underlying data models coming from different API's using normalizers (`server/api/*)`
+- Example on how to use the same codebase and template swith different underlying data models coming from different API's using normalizers (`server/api/*)`
 
 
 ## Setup

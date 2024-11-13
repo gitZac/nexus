@@ -5,7 +5,8 @@
     max-width: 600px;
     margin: 0 auto;
     padding: 20px;
-    border: 1px solid #ddd;
+    border: 1px solid var(--accent-color);
+    box-shadow: 5px 5px 5px var(--accent-color);
     border-radius: 8px;
   }
   

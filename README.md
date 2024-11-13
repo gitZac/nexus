@@ -24,6 +24,12 @@ You change the site by changing the `DEPLOYED_STORE` environment variable and se
 
 eg. `DEPLOYED_STORE=butterfly` will deploy the `butterfly` site.
 
+## What's included
+
+- File inheritance for all nuxt directories and files using layers
+- Global CSS override example with variables (`assets/css/variables.css`)
+- Example on how to use the same codebase and templateswith different underlying data models coming from different API's using normalizers (`server/api/*)`
+
 ## Setup
 
 Make sure to install dependencies:

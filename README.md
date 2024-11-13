@@ -4,7 +4,7 @@ This emplate shows how to approach a problem of unifying multiple applications w
 
 The goal of this template is to reuse as much as possible from the *base* application that is a common part and then easily override/extend the differentiating parts per site.
 
-The example shows how to deploy **multiple applications from a single codebase**, rather than using a single application instance to serve multiple sites.
+The example shows how to build **multiple applications deployed separately from a single codebase**, rather than using a single application instance to serve multiple sites (multitenancy).
 
 Some examples on where this could be useful:
 - Multi-brand eCommerce setups 

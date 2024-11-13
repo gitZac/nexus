@@ -1,7 +1,7 @@
 <template>
     <div class="product-page">
       <div class="image-placeholder">
-        <img src="https://via.placeholder.com/300" alt="Product Image" />
+        <img :src="product.image" alt="Product Image" />
       </div>
       <div class="product-details">
         <h1 class="product-name">{{ product?.name }}</h1>

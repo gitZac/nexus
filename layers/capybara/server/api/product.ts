@@ -11,6 +11,7 @@ interface VendureProduct {
         price: number;
         sku: string;
     }>;
+    image: string;
 }
 
 const mockProduct: VendureProduct = {
@@ -23,7 +24,8 @@ const mockProduct: VendureProduct = {
         name: "Standard Size",
         price: 2999,
         sku: "CAPY-001"
-    }]
+    }],
+    image: "https://media.istockphoto.com/id/177228186/photo/young-capybara.jpg?s=612x612&w=0&k=20&c=MaLAlTZA3N5fa2Gp2FeCdZCwSbCLXkVVeKTks7IJIgM="
 };
 
 export default defineEventHandler(async (event) => {
@@ -32,6 +34,7 @@ export default defineEventHandler(async (event) => {
             name: product.name,
             price: product.variants[0].price / 100, // Using first variant's price
             description: product.description,
+            image: product.image,
         };
     };
 

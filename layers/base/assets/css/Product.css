@@ -11,7 +11,7 @@
   }
   
   .image-placeholder img {
-    width: 300px;
+    width: 200px;
     height: auto;
     border-radius: 8px;
     object-fit: cover;

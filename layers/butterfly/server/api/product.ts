@@ -58,7 +58,7 @@ const mockProduct: ShopifyProduct = {
   status: "active",
   featuredImage: {
     id: "gid://shopify/ProductImage/456",
-    url: "https://example.com/capybara.jpg",
+    url: "https://pbs.twimg.com/profile_images/1738291333268377600/QjJngnVB_400x400.jpg",
     altText: "Capybara Plush Toy"
   },
   priceRange: {
@@ -85,6 +85,7 @@ export default defineEventHandler(async (event) => {
       name: product.title,
       price: parseFloat(product.priceRange.minVariantPrice.amount),
       description: product.description,
+      image: product.featuredImage?.url || "",
     };
   };
 

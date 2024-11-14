@@ -27,6 +27,7 @@ eg. `DEPLOYED_STORE=butterfly` will deploy the `butterfly` site.
 ## What's included
 
 - File inheritance for all nuxt directories and files using layers
+- Layer-specific features (`layers/butterfly/components/Product.vue`)
 - Global CSS override example with variables (`assets/css/variables.css`)
 - Example on how to use the same codebase and template swith different underlying data models coming from different API's using normalizers (`server/api/*)`
 
@@ -49,7 +50,7 @@ yarn install
 bun install
 ```
 
-# Prequisite
+## Prequisite
 
 Choose the site you wnat to develop or build. Keep in mind that you might need to reload the dev server when you change it.
 

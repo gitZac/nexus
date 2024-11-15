@@ -52,7 +52,7 @@ bun install
 
 ## Prequisite
 
-Choose the site you wnat to develop or build. Keep in mind that you might need to reload the dev server when you change it.
+Choose the site you want to develop or build. Keep in mind that you might need to reload the dev server when you change it.
 
 Use the name of the directory from the `layers` folder instead of `{layer-name}`
 ```

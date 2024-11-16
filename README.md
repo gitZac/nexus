@@ -1,6 +1,6 @@
 # Nuxt Multisite Inheritance Example
 
-This template shows how to approach a problem of unifying multiple applications with a sginificant amount of shared functionalities on the UI/feature layer.
+This template shows how to approach a problem of unifying multiple applications with a sgnificant amount of shared functionalities on the UI/feature layer.
 
 The goal of this template is to reuse as much as possible from the *base* application that is a common part and then easily override/extend the differentiating parts per site.
 

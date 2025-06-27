@@ -10,24 +10,6 @@ export default class StrapiApiController {
     this.config = config;
   }
 
-  _getFormattedComponentName(component: string) {
-    const capRegex = /(\b[a-z](?!\s))/g;
-    const formatRegex = /^.*\./g;
-
-    //Remove global
-    let formattedStr = component.replace(formatRegex, "");
-
-    //Capitalize before and after dash
-    formattedStr = formattedStr.replace(capRegex, (str: string) => {
-      return str.toUpperCase();
-    });
-
-    // Remove dash
-    formattedStr = formattedStr.replace("-", "");
-
-    return formattedStr.toLowerCase();
-  }
-
   async queryCollectionData() {
     const url = `${this.config.apiBase}/${this.params.collection}?filters[slug]=${this.params.slug}&populate=*`;
 
@@ -41,7 +23,7 @@ export default class StrapiApiController {
       const { data } = await response.json();
 
       const transformed = data.map((d: any) => {
-        const components = d.components.map((component) => {
+        const components = d.components.map((component: any) => {
           const componentName = this._getFormattedComponentName(
             component.__component
           );
@@ -65,5 +47,23 @@ export default class StrapiApiController {
     } catch (err) {
       console.log(err);
     }
+  }
+
+  _getFormattedComponentName(component: string) {
+    const capRegex = /(\b[a-z](?!\s))/g;
+    const formatRegex = /^.*\./g;
+
+    //Remove global
+    let formattedStr = component.replace(formatRegex, "");
+
+    //Capitalize before and after dash
+    formattedStr = formattedStr.replace(capRegex, (str: string) => {
+      return str.toUpperCase();
+    });
+
+    // Remove dash
+    formattedStr = formattedStr.replace("-", "");
+
+    return formattedStr.toLowerCase();
   }
 }

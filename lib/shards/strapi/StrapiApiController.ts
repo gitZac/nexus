@@ -10,7 +10,7 @@ export default class StrapiApiController {
     this.config = config;
   }
 
-  async queryCollectionData() {
+  async queryCollectionDataBySlug() {
     const url = `${this.config.apiBase}/${this.params.collection}?filters[slug]=${this.params.slug}&populate=*`;
 
     try {

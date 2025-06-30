@@ -24,15 +24,17 @@ export default class StrapiApiController {
 
       const transformed = data.map((d: any) => {
         const components = d.components.map((component: any) => {
-          console.log(component);
-
           const componentName = this._getFormattedComponentName(
             component.__component
           );
 
+          const imageSchemaTransformed =
+            this._filterAndTransformImageSchema(component);
+
           return {
             componentName,
             ...component,
+            ...imageSchemaTransformed,
           };
         });
 
@@ -49,6 +51,30 @@ export default class StrapiApiController {
     } catch (err) {
       console.log(err);
     }
+  }
+
+  _filterAndTransformImageSchema(component: any) {
+    const filteredFields = Object.fromEntries(
+      Object.entries(component).filter(([key, value]) => {
+        return key.toLowerCase().includes("image");
+      })
+    );
+
+    Object.keys(filteredFields).forEach((key) => {
+      filteredFields[key] = this._migrateImageSchema(filteredFields[key]);
+    });
+
+    return filteredFields;
+  }
+
+  _migrateImageSchema(oldSchema: any) {
+    const newSchema = {
+      name: oldSchema.name,
+      alt: oldSchema.alternativeText,
+      url: oldSchema.url,
+    };
+
+    return newSchema;
   }
 
   _getFormattedComponentName(component: string) {

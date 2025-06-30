@@ -5,10 +5,10 @@
     :is="component.componentName"
     v-bind="{ ...component }" />
 
-  <pre>
+  <!-- <pre>
       {{ componentData }}
     </pre
-  >
+  > -->
 </template>
 
 <script setup>

@@ -11,7 +11,7 @@ export default class StrapiApiController {
   }
 
   async queryCollectionDataBySlug() {
-    const url = `${this.config.apiBase}/${this.params.collection}?filters[slug]=${this.params.slug}&populate=*`;
+    const url = `${this.config.apiBase}/${this.params.collection}?filters[slug]=${this.params.slug}&pLevel`;
 
     try {
       const response = await fetch(url);

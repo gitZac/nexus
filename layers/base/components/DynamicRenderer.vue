@@ -4,8 +4,11 @@
     :key="index"
     :is="component.componentName" />
 
-  {{ componentData }}
-  <component :is="`Product`" />
+  <pre>
+      {{ componentData }}
+
+    </pre
+  >
 </template>
 
 <script setup>

@@ -24,6 +24,8 @@ export default class StrapiApiController {
 
       const transformed = data.map((d: any) => {
         const components = d.components.map((component: any) => {
+          console.log(component);
+
           const componentName = this._getFormattedComponentName(
             component.__component
           );

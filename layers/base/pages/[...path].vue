@@ -1,9 +1,5 @@
 <template>
   <main class="entry" :class="pageSlug == '/' ? 'home' : pageSlug">
-    <pre>
-      {{ pageData }}
-    </pre>
-
     <DynamicRenderer :componentData="pageData.components" />
   </main>
 </template>

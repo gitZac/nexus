@@ -54,12 +54,14 @@ export default class StrapiApiController {
   }
 
   _filterAndTransformImageSchema(component: any) {
+    //Loop through component fields and check if any have the term 'image'.
     const filteredFields = Object.fromEntries(
       Object.entries(component).filter(([key, value]) => {
         return key.toLowerCase().includes("image");
       })
     );
 
+    //Loop through our found objects and transform the schema.
     Object.keys(filteredFields).forEach((key) => {
       filteredFields[key] = this._migrateImageSchema(filteredFields[key]);
     });
@@ -81,7 +83,7 @@ export default class StrapiApiController {
     const capRegex = /(\b[a-z](?!\s))/g;
     const formatRegex = /^.*\./g;
 
-    //Remove global
+    //Remove everything before the dot., ie., global.cool-hero
     let formattedStr = component.replace(formatRegex, "");
 
     formattedStr = formattedStr.replace(capRegex, (str: string) => {

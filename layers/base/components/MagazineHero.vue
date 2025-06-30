@@ -1,11 +1,9 @@
 <template>
   <section class="magazine-hero">
     from magazine hero
-    <!-- 
     <pre>
         {{ props }}
-
-    </pre> -->
+    </pre>
   </section>
 </template>
 

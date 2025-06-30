@@ -10,8 +10,8 @@ export default class StrapiApiController {
     this.config = config;
   }
 
-  async queryCollectionData() {
-    const url = `${this.config.apiBase}/${this.params.collection}?filters[slug]=${this.params.slug}&populate=*`;
+  async queryCollectionDataBySlug() {
+    const url = `${this.config.apiBase}/${this.params.collection}?filters[slug]=${this.params.slug}&pLevel`;
 
     try {
       const response = await fetch(url);
@@ -56,14 +56,11 @@ export default class StrapiApiController {
     //Remove global
     let formattedStr = component.replace(formatRegex, "");
 
-    //Capitalize before and after dash
     formattedStr = formattedStr.replace(capRegex, (str: string) => {
       return str.toUpperCase();
     });
 
     // Remove dash
-    formattedStr = formattedStr.replace("-", "");
-
-    return formattedStr.toLowerCase();
+    return (formattedStr = formattedStr.replace("-", ""));
   }
 }

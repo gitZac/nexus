@@ -7,7 +7,7 @@ export default defineEventHandler(async (event) => {
   };
 
   const strapi = new StrapiApiController(queryParams, config);
-  const pageData = await strapi.queryCollectionData();
+  const pageData = await strapi.queryCollectionDataBySlug();
 
   return {
     ...pageData,

@@ -24,15 +24,17 @@ export default class StrapiApiController {
 
       const transformed = data.map((d: any) => {
         const components = d.components.map((component: any) => {
-          console.log(component);
-
           const componentName = this._getFormattedComponentName(
             component.__component
           );
 
+          const imageSchemaTransformed =
+            this._filterAndTransformImageSchema(component);
+
           return {
             componentName,
             ...component,
+            ...imageSchemaTransformed,
           };
         });
 
@@ -51,11 +53,37 @@ export default class StrapiApiController {
     }
   }
 
+  _filterAndTransformImageSchema(component: any) {
+    //Loop through component fields and check if any have the term 'image'.
+    const filteredFields = Object.fromEntries(
+      Object.entries(component).filter(([key, value]) => {
+        return key.toLowerCase().includes("image");
+      })
+    );
+
+    //Loop through our found objects and transform the schema.
+    Object.keys(filteredFields).forEach((key) => {
+      filteredFields[key] = this._migrateImageSchema(filteredFields[key]);
+    });
+
+    return filteredFields;
+  }
+
+  _migrateImageSchema(oldSchema: any) {
+    const newSchema = {
+      name: oldSchema.name,
+      alt: oldSchema.alternativeText,
+      url: oldSchema.url,
+    };
+
+    return newSchema;
+  }
+
   _getFormattedComponentName(component: string) {
     const capRegex = /(\b[a-z](?!\s))/g;
     const formatRegex = /^.*\./g;
 
-    //Remove global
+    //Remove everything before the dot., ie., global.cool-hero
     let formattedStr = component.replace(formatRegex, "");
 
     formattedStr = formattedStr.replace(capRegex, (str: string) => {

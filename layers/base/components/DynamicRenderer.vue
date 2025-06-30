@@ -4,11 +4,6 @@
     :key="index"
     :is="component.componentName"
     v-bind="{ ...component }" />
-
-  <pre>
-      {{ componentData }}
-    </pre
-  >
 </template>
 
 <script setup>

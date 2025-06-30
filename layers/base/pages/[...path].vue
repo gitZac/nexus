@@ -1,30 +1,14 @@
 <template>
-  <div>
-    <DynamicRenderer />
-    {{ getPageSlug }}
-    <pre>
-    <!-- {{ route.matched[0].components.default.__file }} -->
-    {{ pageData }}
-
-
-</pre>
-  </div>
+  <main class="entry" :class="pageSlug == '/' ? 'home' : pageSlug">
+    <DynamicRenderer :componentData="pageData.components" />
+  </main>
 </template>
 
 <script setup>
 const route = useRoute();
-const slug = route.path;
-const splitSlug = slug.split("/");
+
+const pageSlug = generatePageSlugFromRoute(route.path);
 const innerRouteData = route.matched[0].components.default.__file.split("/");
-
-splitSlug.shift();
-
-let pageSlug = "/";
-
-if (splitSlug.length) {
-  pageSlug = splitSlug[splitSlug.length - 1];
-}
-
 const collection = innerRouteData[innerRouteData.length - 2];
 
 const {

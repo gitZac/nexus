@@ -28,6 +28,8 @@ export default class StrapiApiController {
             component.__component
           );
 
+          console.log(componentName);
+
           return {
             componentName,
             ...component,
@@ -56,14 +58,11 @@ export default class StrapiApiController {
     //Remove global
     let formattedStr = component.replace(formatRegex, "");
 
-    //Capitalize before and after dash
     formattedStr = formattedStr.replace(capRegex, (str: string) => {
       return str.toUpperCase();
     });
 
     // Remove dash
-    formattedStr = formattedStr.replace("-", "");
-
-    return formattedStr.toLowerCase();
+    return (formattedStr = formattedStr.replace("-", ""));
   }
 }

@@ -28,8 +28,6 @@ export default class StrapiApiController {
             component.__component
           );
 
-          console.log(componentName);
-
           return {
             componentName,
             ...component,

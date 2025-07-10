@@ -5,4 +5,10 @@ export default defineNuxtConfig({
   components: {
     global: true,
   },
+  runtimeConfig: {
+    public: {
+      pageData: process.env.PAGE_DATA,
+      eventData: process.env.EVENT_DATA,
+    },
+  },
 });

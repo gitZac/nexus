@@ -1,9 +1,15 @@
 <template>
-  <article class="event-card">
-    EventCard
-
+  <article class="event-card-list">
+    EventCardList
     <pre>
         {{ props }}
+    </pre>
+    <pre v-if="!list">
+        LOADING
+    </pre>
+    <pre v-else>
+        {{ list }}
+        {{ `/api/event-data/${config.public.eventData}/events` }}
     </pre>
   </article>
 </template>
@@ -13,25 +19,23 @@ const props = defineProps({
   title: {
     type: String,
   },
-  subTitle: {
-    type: String,
-    default: "",
+  customEvents: {
+    type: Array,
+    default: () => [],
   },
-  superTitle: {
-    type: String,
-    default: "",
-  },
-  coverImage: { type: Object, default: () => {} },
 });
+const config = useRuntimeConfig();
+const list = ref([]);
 
-const {
-  data: eventData,
-  status,
-  error,
-  refresh,
-} = await useFetch("/api/eventbrite", {
-  query: { collection: collection, slug: pageSlug },
+onMounted(async () => {
+  try {
+    await nextTick();
+    const { data } = await useFetch(
+      `/api/event-data/${config.public.eventData}/events`
+    );
+    list.value = data.value;
+  } catch (err) {
+    console.log(err);
+  }
 });
 </script>
-
-<style scoped></style>

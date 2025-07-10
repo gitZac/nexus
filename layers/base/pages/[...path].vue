@@ -6,17 +6,15 @@
 
 <script setup>
 const route = useRoute();
-
+const config = useRuntimeConfig();
 const pageSlug = generatePageSlugFromRoute(route.path);
 const innerRouteData = route.matched[0].components.default.__file.split("/");
 const collection = innerRouteData[innerRouteData.length - 2];
 
-const {
-  data: pageData,
-  status,
-  error,
-  refresh,
-} = await useFetch("/api/strapi", {
-  query: { collection: collection, slug: pageSlug },
-});
+const { data: pageData } = await useFetch(
+  `/api/page-data/${config.public.pageData}`,
+  {
+    query: { collection: collection, slug: pageSlug },
+  }
+);
 </script>

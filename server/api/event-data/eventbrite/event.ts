@@ -1,4 +1,4 @@
-import EventbriteApiController from "~/lib/shards/eventbrite/EventBriteApiController";
+import EventbriteApiController from "~/lib/shards/eventbrite/EventbriteApiController";
 
 const runtimeConfig = useRuntimeConfig();
 

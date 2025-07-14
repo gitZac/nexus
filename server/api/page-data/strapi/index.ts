@@ -1,9 +1,10 @@
 import StrapiApiController from "~/lib/shards/strapi/StrapiApiController";
+const runtimeConfig = useRuntimeConfig();
 
 export default defineEventHandler(async (event) => {
   const queryParams = getQuery(event);
   const config = {
-    apiBase: process.env.STRAPI_API_BASE,
+    apiBase: runtimeConfig.strapiApiBase,
   };
 
   const strapi = new StrapiApiController(queryParams, config);

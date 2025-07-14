@@ -1,13 +1,15 @@
 import EventbriteApiController from "~/lib/shards/eventbrite/EventBriteApiController";
 
+const runtimeConfig = useRuntimeConfig();
+
 export default defineEventHandler(async (event) => {
   const params = getQuery(event);
 
   const config = {
-    apiKey: process.env.EVENTBRITE_API_KEY,
-    clientSecret: process.env.EVENTBRITE_CLIENT_SECRET,
-    privateToken: process.env.EVENTBRITE_PRIVATE_TOKEN,
-    publicToken: process.env.EVENTBRITE_PUBLIC_TOKEN,
+    apiKey: runtimeConfig.EVENTBRITE_API_KEY,
+    clientSecret: runtimeConfig.EVENTBRITE_CLIENT_SECRET,
+    privateToken: runtimeConfig.EVENTBRITE_PRIVATE_TOKEN,
+    publicToken: runtimeConfig.EVENTBRITE_PUBLIC_TOKEN,
   };
 
   const eventId = params.eid;

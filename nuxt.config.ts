@@ -1,4 +1,16 @@
-const runtimeConfig = useRuntimeConfig();
+const runtimeConfig = {
+  deployedStore: process.env.DEPLOYED_STORE,
+  eventbriteApiKey: process.env.EVENTBRITE_API_KEY,
+  eventbriteClientSecret: process.env.EVENTBRITE_CLIENT_SECRET,
+  eventbritePrivateToken: process.env.EVENTBRITE_PRIVATE_TOKEN,
+  eventbritePublicToken: process.env.EVENTBRITE_PUBLIC_TOKEN,
+  strapiApiBase: process.env.STRAPI_API_BASE,
+  strapiUrlBase: process.env.STRAPI_URL_BASE,
+  public: {
+    pageData: process.env.PAGE_DATA,
+    eventData: process.env.EVENT_DATA,
+  },
+};
 
 export default defineNuxtConfig({
   css: [`@/layers/${runtimeConfig.deployedStore}/assets/css/global.css`],
@@ -7,18 +19,5 @@ export default defineNuxtConfig({
   components: {
     global: true,
   },
-  runtimeConfig: {
-    deployedStore: "capybara",
-    eventbriteApiKey: "4QYDRBWCU4HACOCQVF",
-    eventbriteClientSecret:
-      "LMOPJVWZJ7PLZXIAZOK5JZUUUIS54XRHPTYSN3R4AIANEGACJQ",
-    eventbritePrivateToken: "6VEWIYMPFNHWI3K6ZHKG",
-    eventbritePublicToken: "URBVQ6FGEBPRKNKHP4TS",
-    strapiApiBase: "http://localhost:1337/api",
-    strapiUrlBase: "http://localhost:1337",
-    public: {
-      pageData: process.env.PAGE_DATA,
-      eventData: process.env.EVENT_DATA,
-    },
-  },
+  runtimeConfig: runtimeConfig,
 });

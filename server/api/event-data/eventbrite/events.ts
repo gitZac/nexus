@@ -1,6 +1,7 @@
 import EventbriteApiController from "~/lib/shards/eventbrite/EventBriteApiController";
 
 export default defineEventHandler(async (event) => {
+  if (process.env.EVENT_DATA !== "eventbrite") return;
   const config = {
     apiKey: process.env.EVENTBRITE_API_KEY,
     clientSecret: process.env.EVENTBRITE_CLIENT_SECRET,

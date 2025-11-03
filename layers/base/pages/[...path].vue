@@ -2,6 +2,7 @@
   <main class="entry" :class="pageSlug == '/' ? 'home' : pageSlug">
     <div>
       it's working somehow
+      {{ pageData }}
       <DynamicRenderer :componentData="pageData?.components" />
     </div>
     <!-- <div v-else class="">We're sorry, we couldn't load your data.</div> -->
@@ -24,6 +25,8 @@ onMounted(async () => {
         query: { collection: "pages", slug: pageSlug },
       }
     );
+
+    console.log(`/api/page-data/${config.public.pageData}`);
 
     pageData.value = data.value;
 

@@ -70,6 +70,7 @@ export default class StrapiApiController {
   }
 
   _migrateImageSchema(oldSchema: any) {
+    if (!oldSchema) return {};
     const newSchema = {
       name: oldSchema.name,
       alt: oldSchema.alternativeText,

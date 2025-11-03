@@ -26,6 +26,9 @@ onMounted(async () => {
     );
 
     pageData.value = data.value;
+
+    console.log(pageData.value);
+    console.log(data.value);
   } catch (err) {
     console.log(err);
   }

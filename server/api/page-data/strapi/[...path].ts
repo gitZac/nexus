@@ -2,7 +2,16 @@ import StrapiApiController from "~/lib/shards/strapi/StrapiApiController";
 const runtimeConfig = useRuntimeConfig();
 
 export default defineEventHandler(async (event) => {
-  const queryParams = getQuery(event);
+  if (!event) return "northing here";
+
+  const collection = "pages";
+  const slug = event?.context?.matchedRoute?.params?.path;
+
+  const queryParams = {
+    collection: collection,
+    slug: slug == collection ? "/" : slug,
+  };
+
   const config = {
     apiBase: runtimeConfig.strapiApiBase,
   };
@@ -11,6 +20,7 @@ export default defineEventHandler(async (event) => {
   const pageData = await strapi.queryCollectionDataBySlug();
 
   return {
+    queryParams,
     ...pageData,
   };
 });

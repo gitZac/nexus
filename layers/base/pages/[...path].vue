@@ -1,7 +1,7 @@
 <template>
   <main class="entry" :class="pageSlug == '/' ? 'home' : pageSlug">
     <div v-if="pageData">
-      it's working somehow
+      {{ pageData }}
       <DynamicRenderer :componentData="pageData?.components" />
     </div>
     <div v-else class="">We're sorry, we couldn't load your data.</div>
@@ -19,10 +19,7 @@ onMounted(async () => {
     await nextTick();
 
     const { data } = await useFetch(
-      `/api/page-data/${config.public.pageData}`,
-      {
-        query: { collection: "pages", slug: pageSlug },
-      }
+      `/api/page-data/${config.public.pageData}/${pageSlug}`
     );
 
     pageData.value = data.value;

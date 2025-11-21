@@ -1,7 +1,7 @@
 import EventbriteApiController from "~/lib/shards/eventbrite/EventbriteApiController";
 const runtimeConfig = useRuntimeConfig();
 
-export default defineEventHandler(async (event) => {
+export default defineEventHandler(async () => {
   const config = {
     apiKey: runtimeConfig.eventbriteApiKey,
     clientSecret: runtimeConfig.eventbriteClientSecret,

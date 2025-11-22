@@ -18,7 +18,6 @@ export default defineEventHandler(async () => {
   );
 
   const data = await strapi.queryEntireCollection(false, collection);
-
   const routeList = getSlugListFromArrayAndFormat(data);
 
   return {

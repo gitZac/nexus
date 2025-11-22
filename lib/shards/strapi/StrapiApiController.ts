@@ -53,6 +53,25 @@ export default class StrapiApiController {
     }
   }
 
+  async queryEntireCollection(isDeep: Boolean, collection: String) {
+    const deepParam = isDeep ? "?pLevel" : "";
+    const url = `${this.config?.apiBase}/${collection}${deepParam}`;
+
+    try {
+      const response = await fetch(url);
+
+      if (!response.ok) {
+        throw new Error(`Response status: ${response.status}`);
+      }
+
+      const { data } = await response.json();
+
+      return data;
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
   _filterAndTransformImageSchema(component: any) {
     //Loop through component fields and check if any have the term 'image'.
     const filteredFields = Object.fromEntries(

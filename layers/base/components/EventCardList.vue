@@ -1,9 +1,6 @@
 <template>
   <article class="event-card-list">
     EventCardList
-    <pre>
-        {{ props }}
-    </pre>
     <pre v-if="!list">
         LOADING
     </pre>

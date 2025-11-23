@@ -1,0 +1,17 @@
+@use "../abstracts/functions" as fn;
+@use "../abstracts/derived-variables" as dv;
+@use "./loaders/" as load;
+
+$custom-radius-helpers: null !default;
+
+$radius-helpers: fn.mergeHelperMaps(
+  (
+    "small": dv.$radius-small,
+    "large": dv.$radius-large,
+  ),
+  $custom-radius-helpers
+);
+
+.radius.radius {
+  @include load.radius($radius-helpers);
+}

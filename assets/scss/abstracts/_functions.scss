@@ -1,0 +1,125 @@
+@use "sass:meta";
+@use "sass:color";
+@use "sass:math";
+@use "sass:map";
+@use "sass:string";
+
+$base-spacing: 1.2 !default;
+
+@function mergeHelperMaps($doxa-helpers, $custom-helpers) {
+  @if meta.type-of($custom-helpers) == "map" {
+    @return map.merge($doxa-helpers, $custom-helpers);
+  }
+
+  @return $doxa-helpers;
+}
+
+@function deepMergeHelperMaps($doxa-helpers, $custom-helpers) {
+  @if meta.type-of($custom-helpers) == "map" {
+    @return map.deep-merge($doxa-helpers, $custom-helpers);
+  }
+
+  @return $doxa-helpers;
+}
+
+@function powerNumber($number, $exp) {
+  $value: 1;
+
+  @if $exp > 0 {
+    @for $i from 1 through $exp {
+      $value: $value * $number;
+    }
+  } @else if $exp < 0 {
+    @for $i from 1 through -$exp {
+      $value: math.div($value, $number);
+    }
+  }
+
+  @return $value;
+}
+
+@function detectColorLuminance($color) {
+  @if meta.type-of($color) != "color" {
+    @return 0.55;
+  }
+
+  $color-rgb: (
+    "red": color.channel($color, "red", $space: rgb),
+    "green": color.channel($color, "green", $space: rgb),
+    "blue": color.channel($color, "blue", $space: rgb),
+  );
+
+  @each $name, $value in $color-rgb {
+    $adjusted: 0;
+    $value: math.div($value, 255);
+
+    @if $value < 0.03928 {
+      $value: math.div($value, 12.92);
+    } @else {
+      $value: math.div($value + 0.055, 1.055);
+      $value: powerNumber($value, 2);
+    }
+
+    $color-rgb: map.merge(
+      $color-rgb,
+      (
+        $name: $value,
+      )
+    );
+  }
+
+  @return map.get($color-rgb, "red") * 0.2126 + map.get($color-rgb, "green") *
+    0.7152 + map.get($color-rgb, "blue") * 0.0722;
+}
+
+@function findColorInvert($color, $darkColorCase, $lightColorCase) {
+  $luminance: detectColorLuminance($color);
+  @if ($luminance > 0.4) {
+    @return $lightColorCase;
+  } @else {
+    @return $darkColorCase;
+  }
+}
+
+@function spacer($modifier, $custom-base: 0) {
+  $base: 0;
+
+  @if ($custom-base > 0) {
+    $base: $custom-base;
+  } @else {
+    $base: $base-spacing;
+  }
+
+  $result: $base * $modifier;
+  @return $result * 1rem;
+}
+
+@function str-replace($string, $search, $replace: "") {
+  $index: string.index($string, $search);
+
+  @if $index {
+    @return string.slice($string, 1, $index - 1) + $replace +
+      str-replace(
+        string.slice($string, $index + string.length($search)),
+        $search,
+        $replace
+      );
+  }
+
+  @return $string;
+}
+
+@function getInnerArrowColor(
+  $backgroundColor,
+  $darkColorCase,
+  $lightColorCase
+) {
+  $invertedColor: findColorInvert(
+    $backgroundColor,
+    $darkColorCase,
+    $lightColorCase
+  );
+  $convertedColor: str-replace("" + $invertedColor, "#", "%23");
+
+  @return $convertedColor;
+}

@@ -1,0 +1,6 @@
+@use "../abstracts/derived-variables" as dv;
+@use "./loaders/" as load;
+
+.switch.switch {
+  @include load.switch(dv.$doxa-colors);
+}

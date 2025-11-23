@@ -1,0 +1,6 @@
+@use "../abstracts/derived-variables" as dv;
+@use "./loaders/" as load;
+
+.radio.radio {
+  @include load.radio(dv.$doxa-colors);
+}

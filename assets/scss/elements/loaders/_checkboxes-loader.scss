@@ -1,0 +1,87 @@
+@use "./../../abstracts/derived-variables" as dv;
+@use "./../../abstracts/functions" as fn;
+@use "../../abstracts/mixins" as mx;
+
+@use "sass:list";
+@use "sass:map";
+
+@mixin checkbox($colors) {
+  @include checkbox-base;
+  @include checkbox-helpers($colors);
+}
+
+@mixin checkbox-base {
+  font-size: 1.6rem;
+  line-height: 2.4rem;
+  padding-bottom: 0.2rem;
+  cursor: pointer;
+
+  &.has-error + .error-message {
+    color: dv.$danger;
+  }
+
+  input[type="checkbox"] {
+    opacity: 0;
+  }
+
+  &:not(#{&}--is-reversed):has(input[type="checkbox"]:checked)::before,
+  &:has(input[type="checkbox"]:checked)::after {
+    background-image: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Crect x='0.5' y='0.5' width='19' height='19' rx='1.5' fill='#{fn.str-replace('' + dv.$neutral-dark, '#', '%23')}'/%3E%3Crect x='0.5' y='0.5' width='19' height='19' rx='1.5' stroke='#{fn.str-replace('' + dv.$neutral-dark, '#', '%23')}'/%3E%3Cpath d='M15.5309 5.37583L15.5296 5.37701L7.88778 12.1137L4.47078 9.10138C4.47071 9.10132 4.47064 9.10125 4.47056 9.10119C4.37155 9.01329 4.23682 8.96384 4.09629 8.96384C3.95572 8.96384 3.82098 9.0133 3.72196 9.10124C3.72191 9.10129 3.72186 9.10133 3.7218 9.10138L3.15601 9.60015C3.15595 9.60021 3.15587 9.60028 3.1558 9.60034C3.05608 9.68763 3 9.80639 3 9.93028C3 10.0542 3.05611 10.173 3.15587 10.2603C3.15592 10.2603 3.15596 10.2604 3.15601 10.2604L7.51733 14.1051C7.51741 14.1052 7.5175 14.1052 7.51758 14.1053C7.61659 14.1932 7.75131 14.2427 7.89183 14.2427C8.03235 14.2427 8.16705 14.1932 8.26606 14.1053C8.26614 14.1052 8.26623 14.1052 8.26631 14.1051L16.844 6.54348C16.844 6.54345 16.8441 6.54342 16.8441 6.54341C16.9439 6.4561 17 6.3373 17 6.21335C17 6.08957 16.944 5.97091 16.8445 5.88364C16.8443 5.8835 16.8442 5.88336 16.844 5.88322L16.2785 5.37754V5.37753L16.2765 5.37583C16.0687 5.19829 15.7386 5.19829 15.5309 5.37583Z' fill='#{fn.getInnerArrowColor(dv.$neutral-dark,  dv.$pure, dv.$text) }' stroke='#{fn.getInnerArrowColor(dv.$neutral-dark,  dv.$pure, dv.$text) }' stroke-width='0.25'/%3E%3C/svg%3E%0A");
+    background-color: inherit;
+  }
+
+  &:not(#{&}--is-reversed)::before,
+  &--is-reversed::after {
+    content: "";
+    width: 2rem;
+    height: 2rem;
+    background-image: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Crect x='0.5' y='0.5' width='19' height='19' rx='1.5' stroke='%234A4A42'/%3E%3C/svg%3E%0A");
+    background-size: contain;
+    background-repeat: no-repeat;
+    display: inline-block;
+    position: relative;
+    background-color: dv.$pure;
+    border-radius: 0.2rem;
+  }
+
+  &:not(#{&}--is-reversed)::before {
+    top: 0.4rem;
+    left: -0.8rem;
+  }
+
+  &--is-reversed::after {
+    top: 0.4rem;
+    left: 0.8rem;
+  }
+
+  &:has(input[type="checkbox"]:disabled) {
+    opacity: 0.5;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+
+  &:focus-within::before,
+  &:focus::before,
+  &:focus-visible::before,
+  &:focus-within::after,
+  &:focus::after,
+  &:focus-visible::after {
+    outline: 2px solid blue;
+  }
+}
+
+@mixin checkbox-helpers($colors) {
+  @each $name, $color in $colors {
+    &--is-#{$name}:not(#{&}--is-reversed):has(
+        input[type="checkbox"]:checked
+      )::before,
+    &--is-#{$name}:has(input[type="checkbox"]:checked)::after {
+      @include checkbox-colors($name, $color, dv.$pure, dv.$text);
+    }
+  }
+}
+
+@mixin checkbox-colors($name, $color, $darkColorCase, $lightColorCase) {
+  background-image: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Crect x='0.5' y='0.5' width='19' height='19' rx='1.5' fill='#{fn.str-replace('' + $color, '#', '%23')}'/%3E%3Crect x='0.5' y='0.5' width='19' height='19' rx='1.5' stroke='#{fn.str-replace('' + $color, '#', '%23')}'/%3E%3Cpath d='M15.5309 5.37583L15.5296 5.37701L7.88778 12.1137L4.47078 9.10138C4.47071 9.10132 4.47064 9.10125 4.47056 9.10119C4.37155 9.01329 4.23682 8.96384 4.09629 8.96384C3.95572 8.96384 3.82098 9.0133 3.72196 9.10124C3.72191 9.10129 3.72186 9.10133 3.7218 9.10138L3.15601 9.60015C3.15595 9.60021 3.15587 9.60028 3.1558 9.60034C3.05608 9.68763 3 9.80639 3 9.93028C3 10.0542 3.05611 10.173 3.15587 10.2603C3.15592 10.2603 3.15596 10.2604 3.15601 10.2604L7.51733 14.1051C7.51741 14.1052 7.5175 14.1052 7.51758 14.1053C7.61659 14.1932 7.75131 14.2427 7.89183 14.2427C8.03235 14.2427 8.16705 14.1932 8.26606 14.1053C8.26614 14.1052 8.26623 14.1052 8.26631 14.1051L16.844 6.54348C16.844 6.54345 16.8441 6.54342 16.8441 6.54341C16.9439 6.4561 17 6.3373 17 6.21335C17 6.08957 16.944 5.97091 16.8445 5.88364C16.8443 5.8835 16.8442 5.88336 16.844 5.88322L16.2785 5.37754V5.37753L16.2765 5.37583C16.0687 5.19829 15.7386 5.19829 15.5309 5.37583Z' fill='#{fn.getInnerArrowColor($color, $darkColorCase, $lightColorCase) }' stroke='#{fn.getInnerArrowColor($color, $darkColorCase, $lightColorCase) }' stroke-width='0.25'/%3E%3C/svg%3E%0A");
+  background-color: inherit;
+}

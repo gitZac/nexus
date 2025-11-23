@@ -1,0 +1,6 @@
+@use "./loaders/button-loader" as load;
+@use "./../abstracts/derived-variables" as dv;
+
+.button.button {
+  @include load.button(dv.$doxa-colors);
+}

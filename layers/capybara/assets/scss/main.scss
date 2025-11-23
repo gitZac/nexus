@@ -1,0 +1,7 @@
+@use "./variables" as var;
+@use "./../../../../assets/scss" with (
+  $primary: var.$primary,
+  $secondary: var.$secondary,
+  $utility: var.$utility
+);
+@forward "./../../../../assets/scss";

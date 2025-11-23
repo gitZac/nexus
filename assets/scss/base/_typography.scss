@@ -1,0 +1,24 @@
+@use "../abstracts/derived-variables" as dv;
+@use "./loaders/" as load;
+
+html,
+body {
+  font-size: 10px;
+  color: dv.$text;
+}
+
+.heading.heading {
+  @include load.heading(dv.$heading-levels, dv.$typography-helpers);
+}
+
+.copy.copy {
+  @include load.copy(dv.$typography-helpers);
+}
+
+.link.link {
+  @include load.link(dv.$typography-helpers);
+}
+
+.eyebrow.eyebrow {
+  @include load.eyebrow(dv.$typography-helpers);
+}

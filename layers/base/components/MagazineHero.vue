@@ -1,6 +1,7 @@
 <template>
   <section class="magazine-hero">
     from magazine hero
+    <button class="button button--is-primary">Learn More</button>
     <pre>
         {{ props }}
     </pre>

@@ -1,0 +1,56 @@
+@use "../abstracts/_mixins.scss" as mx;
+@use "../abstracts/functions" as fn;
+@use "../abstracts/initial-variables" as iv;
+@use "./loaders" as load;
+
+$base: 1.2 !default;
+$custom-spacing-sizes: null !default;
+$custom-spacing-directions: null !default;
+$custom-spacing-styles: null !default;
+$custom-spacing-mqs: null !default;
+
+$spacing-directions: fn.mergeHelperMaps(
+  (
+    "top": "t",
+    "bottom": "b",
+  ),
+  $custom-spacing-directions
+) !default;
+
+$spacing-styles: fn.mergeHelperMaps(
+  (
+    "margin": "m",
+    "padding": "p",
+  ),
+  $custom-spacing-styles
+) !default;
+
+$spacing-sizes: fn.mergeHelperMaps(
+  (
+    "xxsmall": fn.spacer(0.25, $base),
+    "xsmall": fn.spacer(0.5, $base),
+    "small": fn.spacer(1, $base),
+    "medium": fn.spacer(1.5, $base),
+    "large": fn.spacer(2, $base),
+    "xlarge": fn.spacer(2.5, $base),
+    "xxlarge": fn.spacer(3, $base),
+    "xxxlarge": fn.spacer(4, $base),
+  ),
+  $custom-spacing-sizes
+) !default;
+
+$spacing-mqs: fn.mergeHelperMaps(
+  (
+    iv.$desktop: 2,
+  ),
+  $custom-spacing-mqs
+) !default;
+
+#{iv.$pfx} .spacing.spacing {
+  @include load.spacing(
+    $spacing-directions,
+    $spacing-styles,
+    $spacing-mqs,
+    $spacing-sizes
+  );
+}

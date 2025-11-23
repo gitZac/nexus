@@ -1,0 +1,22 @@
+@use "../abstracts/functions" as fn;
+@use "../abstracts/derived-variables" as dv;
+@use "./loaders/" as load;
+
+$custom-drop-helpers: null !default;
+
+$drop-helpers: fn.mergeHelperMaps(
+  (
+    "xxsmall": 0px 2px 4px 0px rgba(0, 0, 0, 0.03),
+    "xsmall": 0px 4px 8px -2px rgba(0, 0, 0, 0.06),
+    "small": 0px 8px 16px -4px rgba(0, 0, 0, 0.08),
+    "medium": 0px 16px 32px -8px rgba(0, 0, 0, 0.1),
+    "large": 0px 24px 32px -10px rgba(0, 0, 0, 0.12),
+    "xlarge": 0px 28px 48px -12px rgba(0, 0, 0, 0.15),
+    "xxlarge": 0px 32px 64px -12px rgba(0, 0, 0, 0.15),
+  ),
+  $custom-drop-helpers
+) !default;
+
+.drop.drop {
+  @include load.drop($drop-helpers);
+}

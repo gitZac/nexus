@@ -1,0 +1,51 @@
+@use "./../../abstracts/derived-variables" as dv;
+@use "./../../abstracts/functions" as fn;
+@use "sass:list";
+@use "sass:map";
+
+@mixin arrow($colors) {
+  @include arrow-base;
+  @include arrow-helpers(dv.$arrow-helpers);
+  @include arrow-colors($colors);
+}
+
+@mixin arrow-base {
+  background-image: url("data:image/svg+xml,%3Csvg width='56' height='56' viewBox='0 0 56 56' fill='#{fn.str-replace('' + dv.$neutral-dark, '#', '%23')}' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='56' height='56' rx='28' fill='fff'/%3E%3Cpath d='M17.4495 26.8461C16.8502 27.4708 16.8502 28.5119 17.4495 29.1365L30.2362 42.5316C30.9022 43.1561 31.9012 43.1561 32.5006 42.5316C33.1665 41.8375 33.1665 40.7965 32.5006 40.1717L20.846 28.026L32.5006 15.8803C33.1665 15.1862 33.1665 14.1452 32.5006 13.5205C31.9012 12.8265 30.9022 12.8265 30.3028 13.5205L17.4495 26.8461Z' fill='white'/%3E%3C/svg%3E%0A");
+  background-size: contain;
+  background-repeat: no-repeat;
+  height: 4rem;
+  width: 4rem;
+  border: none;
+  cursor: pointer;
+  display: block;
+  background-color: transparent;
+
+  &--is-disabled {
+    &:disabled {
+      opacity: 0.5;
+      pointer-events: none;
+    }
+  }
+}
+
+@mixin arrow-colors($colors) {
+  @each $name, $color in $colors {
+    &--is-#{$name} {
+      background-image: url("data:image/svg+xml,%3Csvg width='56' height='56' viewBox='0 0 56 56' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='56' height='56' rx='28' fill='#{fn.str-replace('' + $color, '#', '%23')}'/%3E%3Cpath d='M17.4495 26.8461C16.8502 27.4708 16.8502 28.5119 17.4495 29.1365L30.2362 42.5316C30.9022 43.1561 31.9012 43.1561 32.5006 42.5316C33.1665 41.8375 33.1665 40.7965 32.5006 40.1717L20.846 28.026L32.5006 15.8803C33.1665 15.1862 33.1665 14.1452 32.5006 13.5205C31.9012 12.8265 30.9022 12.8265 30.3028 13.5205L17.4495 26.8461Z' fill='#{fn.getInnerArrowColor($color, dv.$pure, dv.$text)}'/%3E%3C/svg%3E%0A");
+
+      &:hover {
+        opacity: 0.75;
+      }
+    }
+  }
+}
+
+@mixin arrow-helpers($helpers) {
+  @each $helper, $styles in $helpers {
+    &--is-#{$helper} {
+      @each $prop, $value in $styles {
+        #{$prop}: #{$value};
+      }
+    }
+  }
+}

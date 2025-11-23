@@ -1,0 +1,7 @@
+@mixin drop($drop-helpers) {
+  @each $size, $value in $drop-helpers {
+    &--is-#{$size} {
+      box-shadow: #{$value};
+    }
+  }
+}

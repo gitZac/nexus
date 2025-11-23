@@ -1,0 +1,24 @@
+@use "../../abstracts/_mixins.scss" as mx;
+
+@mixin spacing(
+  $spacing-directions,
+  $spacing-styles,
+  $spacing-mqs,
+  $spacing-sizes
+) {
+  @each $direction, $abbv in $spacing-directions {
+    @each $style, $styleabbv in $spacing-styles {
+      @each $size, $value in $spacing-sizes {
+        &--is-#{$styleabbv}#{$abbv}-#{$size} {
+          #{$style}-#{$direction}: #{$value};
+
+          @each $mq, $mod in $spacing-mqs {
+            @include mx.from($mq) {
+              #{$style}-#{$direction}: #{$value * $mod};
+            }
+          }
+        }
+      }
+    }
+  }
+}

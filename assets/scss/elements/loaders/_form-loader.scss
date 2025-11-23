@@ -1,0 +1,204 @@
+@use "../../abstracts/initial-variables" as iv;
+@use "../../abstracts/derived-variables" as dv;
+@use "sass:meta";
+@use "sass:map";
+@use "sass:list";
+
+@mixin form {
+  font-family: dv.$font-primary;
+  font-weight: dv.$font-weight-default;
+  letter-spacing: 0.005rem;
+  padding: 1rem;
+}
+
+@mixin field-group($colors) {
+  @include field-group-base;
+  @include field-group-style-material($colors);
+  @include field-group-disabled;
+  @include field-group-error;
+}
+
+@mixin field-group-base {
+  font-family: dv.$font-primary;
+  font-weight: dv.$font-weight-default;
+
+  display: flex;
+  flex-direction: column;
+  position: relative;
+
+  &__textarea {
+    min-height: 10rem;
+    padding: 1rem;
+  }
+
+  &__input,
+  &__textarea,
+  &__select {
+    transition: all 0.2s ease;
+    border: 2px solid;
+    line-height: 2.4rem;
+    min-height: 6rem;
+    padding: 0 1rem;
+    font-family: dv.$font-primary;
+    font-weight: dv.$font-weight-default;
+    background-color: dv.$pure;
+    border-radius: dv.$radius-large;
+    font-size: dv.$font-size-small;
+  }
+
+  &__textarea {
+    padding: 2rem 1rem;
+  }
+
+  &__label {
+    padding: 1rem 0;
+    font-size: dv.$font-size-xsmall;
+    order: -1;
+    pointer-events: none;
+    user-select: all;
+  }
+
+  &__label--is-bottom {
+    order: 1;
+  }
+
+  &__error-msg {
+    visibility: hidden;
+    height: 100%;
+    line-height: 2.2rem;
+    padding: 1rem 0;
+  }
+}
+
+@mixin field-group-style-material($colors) {
+  $selector: list.nth(&, 1);
+  $d: list.nth($selector, list.length($selector));
+
+  &--is-material {
+    position: relative;
+
+    //Focus animation
+    //If focus-within is detected:
+    //And the input placeholder is not shown
+    //And the textarea placeholder is not shown
+    //Do the focus animation
+
+    &:focus-within #{$d}__label,
+    &:has(#{$d}__input:not(:placeholder-shown)) #{$d}__label,
+    &:has(#{$d}__textarea:not(:placeholder-shown)) #{$d}__label,
+    &:has(#{$d}__select:not(:placeholder-shown)) #{$d}__label {
+      top: 0.5rem;
+      font-size: dv.$font-size-xxsmall;
+    }
+
+    #{$d}__input,
+    #{$d}__textarea,
+    #{$d}__select {
+      transition: all 0.2s ease;
+      background-color: dv.$pure;
+      border: none;
+      border-bottom: 2px solid dv.$text;
+      border-radius: dv.$radius-large dv.$radius-large 0 0;
+      line-height: 2.4rem;
+      padding-left: 2rem;
+
+      &:focus,
+      &:focus-visible {
+        border-color: dv.$utility;
+      }
+
+      &:focus-visible {
+        outline: none;
+      }
+    }
+
+    #{$d}__input {
+      padding-top: 0.5rem;
+    }
+
+    #{$d}__select {
+      padding-top: 1rem;
+      padding-left: 1.5rem;
+    }
+
+    #{$d}__textarea {
+      padding-top: 2.5rem;
+    }
+
+    #{$d}__label {
+      transition: all 0.2s ease;
+      position: absolute;
+      top: 2rem;
+      font-size: dv.$font-size-small;
+      left: 1rem;
+      padding: 0 1rem;
+    }
+  }
+
+  @include field-group-material-border-colors($colors);
+}
+
+@mixin field-group-disabled {
+  $selector: list.nth(&, 1);
+  $d: list.nth($selector, list.length($selector));
+  &--is-disabled {
+    #{$d}__input {
+      border-color: dv.$greyscale-darker;
+      background-color: dv.$greyscale-light;
+      cursor: not-allowed;
+
+      &::placeholder {
+        border-color: dv.$greyscale-darker;
+      }
+
+      &:focus,
+      &:focus-within,
+      &:focus-visible {
+        outline: none;
+        pointer-events: none;
+      }
+    }
+
+    #{$d}__label {
+      color: dv.$greyscale-darker;
+    }
+  }
+}
+
+@mixin field-group-error {
+  $selector: list.nth(&, 1);
+  $d: list.nth($selector, list.length($selector));
+  &--is-error {
+    #{$d}__error-msg {
+      font-size: dv.$font-size-xxsmall;
+      color: dv.$danger;
+      visibility: visible;
+      height: 100%;
+    }
+
+    #{$d}__input {
+      border-color: dv.$danger;
+    }
+
+    #{$d}__label {
+      color: dv.$danger;
+    }
+  }
+}
+
+@mixin field-group-material-border-colors($colors) {
+  $selector: list.nth(&, 1);
+  $d: list.nth($selector, list.length($selector));
+  @each $name, $color in $colors {
+    &--is-material-#{$name} {
+      #{$d}__input,
+      #{$d}__textarea,
+      #{$d}__select {
+        &:focus,
+        &:focus-visible {
+          border-color: $color;
+        }
+      }
+    }
+  }
+}

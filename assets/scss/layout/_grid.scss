@@ -1,0 +1,39 @@
+@use "../abstracts/functions" as fn;
+@use "../abstracts/initial-variables" as iv;
+@use "./loaders/" as load;
+
+$grid-custom-breakpoints: null !default;
+$grid-custom-column-widths: null !default;
+$grid-columns: 12 !default;
+
+$grid-breakpoints: fn.mergeHelperMaps(
+  (
+    "tablet": iv.$tablet,
+    "desktop": iv.$desktop,
+    "widescreen": iv.$widescreen,
+    "fullhd": iv.$fullhd,
+  ),
+  $grid-custom-breakpoints
+) !default;
+
+$grid-column-widths: fn.mergeHelperMaps(
+  (
+    "full": $grid-columns,
+    "half": 2,
+    "one-third": 3,
+    "one-fourth": 4,
+  ),
+  $grid-custom-column-widths
+) !default;
+
+.grid {
+  @include load.grid($grid-columns);
+}
+
+.grid-item {
+  @include load.grid-item(
+    $grid-columns,
+    $grid-column-widths,
+    $grid-breakpoints
+  );
+}

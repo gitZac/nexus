@@ -1,0 +1,25 @@
+@mixin color($colors) {
+  @each $name, $color in $colors {
+    .has-text-#{$name} {
+      color: $color;
+    }
+
+    .has-text-#{$name}-hover {
+      &:hover {
+        color: $color;
+        cursor: pointer;
+      }
+    }
+
+    .has-background-#{$name} {
+      background-color: $color;
+    }
+
+    .has-background-#{$name}-hover {
+      &:hover {
+        cursor: pointer;
+        background-color: $color;
+      }
+    }
+  }
+}

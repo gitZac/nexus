@@ -1,0 +1,10 @@
+@use "../abstracts/initial-variables" as iv;
+@use "../abstracts/mixins" as mx;
+@use "./loaders/_arrow-loader" as load;
+@use "../abstracts/derived-variables" as dv;
+@use "../abstracts/functions" as fn;
+@use "sass:map";
+
+.arrow.arrow {
+  @include load.arrow(dv.$doxa-colors);
+}

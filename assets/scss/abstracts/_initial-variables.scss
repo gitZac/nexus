@@ -1,0 +1,102 @@
+$dark-blue: #3d5964 !default;
+$light-blue: #f5f7f7 !default;
+$teal: #3e7e74 !default;
+$black: #454546 !default;
+$saltwater: #233d3d !default;
+$seafoam: #b4d1bc !default;
+$golden-years: #c7a554 !default;
+$malta: #cadee7 !default;
+$midnight: #444059 !default;
+
+$bright-green: #bad535 !default;
+$purple: #702b68 !default;
+$dark-purple: #3c0535 !default;
+$yellow: #f1ce70 !default;
+
+$dark-brown: #4a4a42 !default;
+$light-brown: #75756e !default;
+$beige: #ebe8e5 !default;
+$light-beige: #f6f0e6 !default;
+$dark-red: #b3261e !default;
+
+$lightest-grey: #f9f9f9 !default;
+$light-grey: #f6f5f4 !default;
+$medium-grey: #f6f5f5 !default;
+$dark-grey: #ececec !default;
+$darker-grey: #787872 !default;
+
+$background: #f6f6f5 !default;
+$white: #fff !default;
+$viridian: #40806c !default;
+$azure: #4b72b8 !default;
+$lavender: #6c5a91 !default;
+$bistre: #907308 !default;
+$amaranth: #9e3162 !default;
+$chestnut: #a34428 !default;
+$dark-green: #46661d !default;
+$faded-green: #f6f7f4 !default;
+$faded-viridian: #f5f9f8 !default;
+$faded-azure: #f6f8fb !default;
+$faded-lavender: #f8f7f9 !default;
+$faded-bistre: #f9f8f3 !default;
+$faded-amaranth: #faf5f7 !default;
+$faded-chestnut: #faf6f4 !default;
+
+$font-merriweather: "Merriweather", serif !default;
+$font-raleway: "Raleway", serif !default;
+
+//prefixes
+$pfx: "" !default;
+$helper-pfx: "is-" !default;
+
+// The container horizontal gap, which acts as the offset for breakpoints
+$gap: 32px !default;
+
+// 960, 1152, and 1344 have been chosen because they are divisible by both 12 and 16
+$tablet: 769px !default;
+
+// 960px container + 4rem
+$desktop: 960px + 2 * $gap !default;
+// 1152px container + 4rem
+$widescreen: 1152px + 2 * $gap !default;
+// 1344px container + 4rem
+$fullhd: 1344px + 2 * $gap !default;
+
+$breakpoints: (
+  "mobile": (
+    "until": $tablet,
+  ),
+  "tablet": (
+    "from": $tablet,
+  ),
+  "tablet-only": (
+    "from": $tablet,
+    "until": $desktop,
+  ),
+  "touch": (
+    "from": $desktop,
+  ),
+  "desktop": (
+    "from": $desktop,
+  ),
+  "desktop-only": (
+    "from": $desktop,
+    "until": $widescreen,
+  ),
+  "until-widescreen": (
+    "until": $widescreen,
+  ),
+  "widescreen": (
+    "from": $widescreen,
+  ),
+  "widescreen-only": (
+    "from": $widescreen,
+    "until": $fullhd,
+  ),
+  "until-fullhd": (
+    "until": $fullhd,
+  ),
+  "fullhd": (
+    "from": $fullhd,
+  ),
+) !default;

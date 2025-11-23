@@ -1,0 +1,210 @@
+@use "_initial-variables" as iv;
+@use "./functions" as fn;
+
+$primary: iv.$dark-blue !default;
+$secondary: iv.$teal !default;
+$utility: iv.$golden-years !default;
+$danger: iv.$dark-red !default;
+$neutral-dark: iv.$dark-brown !default;
+$neutral: iv.$beige !default;
+$neutral-light: iv.$light-beige !default;
+$text: iv.$black !default;
+$pure: iv.$white !default;
+
+$greyscale-lightest: iv.$lightest-grey !default;
+$greyscale-light: iv.$light-grey !default;
+$greyscale-medium: iv.$medium-grey !default;
+$greyscale-dark: iv.$dark-grey !default;
+$greyscale-darker: iv.$darker-grey !default;
+
+$font-weight-default: 400 !default;
+$font-weight-light: 300 !default;
+$font-weight-semi-bold: 500 !default;
+$font-weight-bold: 600 !default;
+$font-weight-heavy-bold: 700 !default;
+
+$font-size-xxsmall: 1.4rem !default;
+$font-size-xsmall: 1.6rem !default;
+$font-size-small: 1.8rem !default;
+$font-size-medium: 2rem !default;
+$font-size-large: 2.4rem !default;
+$font-size-xlarge: 3.2rem !default;
+
+$font-primary: iv.$font-raleway !default;
+$font-secondary: iv.$font-merriweather !default;
+
+$radius-small: 2px !default;
+$radius-large: 4px !default;
+
+$button-faded-opacity: 0.7;
+
+$custom-heading-levels: null !default;
+$custom-button-helpers: null !default;
+$custom-color-helpers: null !default;
+$custom-typography-helpers: null !default;
+$custom-arrow-helpers: null !default;
+
+$doxa-colors: fn.mergeHelperMaps(
+  (
+    "primary": $primary,
+    "secondary": $secondary,
+    "utility": $utility,
+    "danger": $danger,
+    "neutral-dark": $neutral-dark,
+    "neutral": $neutral,
+    "neutral-light": $neutral-light,
+    "greyscale-lightest": $greyscale-lightest,
+    "greyscale-light": $greyscale-light,
+    "greyscale-medium": $greyscale-medium,
+    "greyscale-dark": $greyscale-dark,
+    "greyscale-darker": $greyscale-darker,
+    "text": $text,
+    "pure": $pure,
+  ),
+  $custom-color-helpers
+) !default;
+
+$typography-helpers: fn.deepMergeHelperMaps(
+  (
+    "light": (
+      "font-weight": $font-weight-light,
+    ),
+    "default": (
+      "font-weight": $font-weight-default,
+    ),
+    "semi-bold": (
+      "font-weight": $font-weight-semi-bold,
+    ),
+    "bold": (
+      "font-weight": $font-weight-bold,
+    ),
+    "heavy-bold": (
+      "font-weight": $font-weight-heavy-bold,
+    ),
+
+    "font-primary": (
+      "font-family": $font-primary,
+    ),
+    "font-secondary": (
+      "font-family": $font-secondary,
+    ),
+
+    "xxsmall": (
+      "font-size": $font-size-xxsmall,
+      "line-height": 1.4rem,
+    ),
+    "xsmall": (
+      "font-size": $font-size-xsmall,
+      "line-height": 1.8rem,
+    ),
+    "small": (
+      "font-size": $font-size-small,
+      "line-height": 2rem,
+    ),
+    "medium": (
+      "font-size": $font-size-medium,
+      "line-height": 3.2rem,
+    ),
+    "large": (
+      "font-size": $font-size-large,
+      "line-height": 3.4rem,
+    ),
+    "xlarge": (
+      "font-size": $font-size-xlarge,
+      "line-height": 4rem,
+    ),
+  ),
+  $custom-typography-helpers
+) !default;
+
+$button-helpers: fn.deepMergeHelperMaps(
+  (
+    "size-default": (
+      "padding": 1.4rem 1.6rem,
+      "font-size": $font-size-small,
+    ),
+    "size-small": (
+      "padding": 1.2rem 1rem,
+      "font-size": $font-size-small,
+    ),
+    "size-medium": (
+      "padding": 1.6rem 1.8rem,
+      "font-size": $font-size-medium,
+    ),
+    "size-large": (
+      "padding": 1.8rem 2rem,
+      "font-size": $font-size-large,
+    ),
+    "size-xlarge": (
+      "padding": 2rem 2.2rem,
+      "font-size": $font-size-xlarge,
+    ),
+  ),
+  $custom-button-helpers
+) !default;
+
+$arrow-helpers: fn.deepMergeHelperMaps(
+  (
+    "left": (
+      "transform": rotate(0),
+    ),
+    "right": (
+      "transform" rotate(180deg),
+    ),
+    "large": (
+      "height": 5.6rem,
+      "width": 5.6rem,
+    ),
+  ),
+  $custom-arrow-helpers
+) !default;
+
+$heading-levels: fn.deepMergeHelperMaps(
+  (
+    "1": (
+      "font-size": 3.2rem,
+      "line-height": 3.8rem,
+      "desktop": (
+        "font-size": 4.3rem,
+        "line-height": 5rem,
+      ),
+    ),
+    "2": (
+      "font-size": 3.2rem,
+      "line-height": 4rem,
+      "desktop": (
+        "font-size": 3.6rem,
+        "line-height": 4.2rem,
+      ),
+    ),
+    "3": (
+      "font-size": 3rem,
+      "line-height": 3.8rem,
+      "desktop": (
+        "font-size": 3.4rem,
+        "line-height": 4rem,
+      ),
+    ),
+    "4": (
+      "font-size": 2.8rem,
+      "line-height": 3.6rem,
+      "desktop": (
+        "font-size": 2.4rem,
+        "line-height": 3.2rem,
+      ),
+    ),
+    "5": (
+      "font-size": 2.4rem,
+      "line-height": 3.2rem,
+      "desktop": (
+        "font-size": 2.2rem,
+        "line-height": 3rem,
+      ),
+    ),
+    "6": (
+      "font-size": 2rem,
+      "line-height": 2rem,
+    ),
+  ),
+  $custom-heading-levels
+) !default;

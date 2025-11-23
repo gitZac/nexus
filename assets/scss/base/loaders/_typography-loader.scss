@@ -1,0 +1,91 @@
+@use "sass:meta";
+@use "sass:map";
+@use "../../abstracts/derived-variables" as dv;
+@use "../../abstracts/initial-variables" as iv;
+@use "../../abstracts/mixins" as mx;
+@use "../../abstracts/functions" as fn;
+
+@mixin heading($heading-levels, $helpers) {
+  @include heading-base;
+  @include heading-levels($heading-levels);
+  @include typography-helpers($helpers);
+}
+
+@mixin copy($helpers) {
+  @include copy-base;
+  @include typography-helpers($helpers);
+}
+
+@mixin link($helpers) {
+  @include link-base;
+  @include typography-helpers($helpers);
+}
+
+@mixin eyebrow($helpers) {
+  @include eyebrow-base;
+  @include typography-helpers($helpers);
+}
+
+@mixin heading-levels($heading-levels) {
+  @each $level, $levels in $heading-levels {
+    &--is-level-#{$level} {
+      @each $prop, $value in $levels {
+        @if meta.type-of($value) == map {
+          @include mx.from(iv.$desktop) {
+            @each $mq-prop, $mq-value in $value {
+              #{$mq-prop}: #{$mq-value};
+            }
+          }
+        } @else {
+          #{$prop}: #{$value};
+        }
+      }
+    }
+  }
+}
+
+@mixin typography-helpers($helpers) {
+  @each $class, $values in $helpers {
+    &--is-#{$class} {
+      @each $prop, $propValue in $values {
+        #{$prop}: #{$propValue};
+      }
+    }
+  }
+}
+
+@mixin heading-base {
+  font-style: normal;
+  font-family: dv.$font-primary;
+  font-weight: dv.$font-weight-default;
+}
+
+@mixin copy-base {
+  font-weight: dv.$font-weight-default;
+  font-size: dv.$font-size-small;
+  line-height: 3.2rem;
+  font-family: dv.$font-secondary;
+}
+
+@mixin eyebrow-base {
+  font-size: dv.$font-size-xxsmall;
+  font-weight: dv.$font-weight-default;
+  text-transform: uppercase;
+  line-height: 2.7rem;
+  font-style: normal;
+  font-family: dv.$font-primary;
+}
+
+@mixin link-base {
+  color: dv.$utility;
+  font-size: dv.$font-size-small;
+  font-weight: dv.$font-weight-default;
+  line-height: 2.4rem;
+  text-decoration-line: underline;
+  font-family: dv.$font-secondary;
+  cursor: pointer;
+
+  &:hover {
+    color: dv.$text;
+  }
+}

@@ -1,0 +1,7 @@
+@mixin radius($radius-helpers) {
+  @each $size, $value in $radius-helpers {
+    &--is-#{$size} {
+      border-radius: #{$value};
+    }
+  }
+}

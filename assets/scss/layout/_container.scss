@@ -1,0 +1,9 @@
+@use "../abstracts/initial-variables" as iv;
+@use "./loaders/" as load;
+
+$container-offset: 2 * iv.$gap !default;
+$container-max-width: iv.$fullhd !default;
+
+.container {
+  @include load.container($container-offset, $container-max-width);
+}

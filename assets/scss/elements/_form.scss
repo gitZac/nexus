@@ -1,0 +1,14 @@
+@use "./loaders/form-loader" as load;
+@use "../abstracts/initial-variables" as iv;
+@use "../abstracts/derived-variables" as dv;
+@use "sass:meta";
+@use "sass:map";
+@use "sass:list";
+
+.form {
+  @include load.form;
+}
+
+.field-group {
+  @include load.field-group(dv.$doxa-colors);
+}

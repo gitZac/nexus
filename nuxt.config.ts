@@ -40,7 +40,11 @@ routeList.forEach((route) => {
 });
 
 export default defineNuxtConfig({
-  css: [`@/layers/${runtimeConfig.deployedStore}/assets/css/global.css`],
+  css: [
+    `@/layers/base/assets/scss/main.scss`,
+    `@/layers/${runtimeConfig.deployedStore}/assets/css/global.css`,
+    `@/layers/${runtimeConfig.deployedStore}/assets/scss/main.scss`,
+  ],
   extends: ["./layers/" + runtimeConfig.deployedStore, "./layers/base"],
   devtools: { enabled: true },
   components: {

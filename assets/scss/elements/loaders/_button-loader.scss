@@ -1,0 +1,212 @@
+@use "./../../abstracts/derived-variables" as dv;
+@use "./../../abstracts/functions" as fn;
+@use "sass:list";
+@use "sass:map";
+
+@mixin button($colors) {
+  @include button-base;
+  @include button-helpers($colors);
+  @include button-custom-helpers(dv.$button-helpers);
+}
+
+@mixin button-helpers($colors) {
+  @include button-style-icon-base;
+  @include button-style-icon-fill($colors);
+  @include button-style-solid($colors);
+  @include button-style-outlined($colors);
+  @include button-style-dark($colors);
+}
+
+@mixin button-base() {
+  border: 2px solid;
+  border-radius: 2px;
+  padding: 1.2rem 1rem;
+  font-size: 1.6rem;
+  font-weight: 500;
+  transition: all 0.2s;
+  letter-spacing: 1px;
+  display: inline-block;
+  font-family: dv.$font-primary;
+  cursor: pointer;
+}
+
+@mixin button-style-solid($colors) {
+  $selector: list.nth(&, 1);
+  $d: list.nth($selector, list.length($selector));
+  @each $name, $color in $colors {
+    &--is-#{$name} {
+      @include button-base-solid($color);
+
+      &:hover {
+        @include button-base-outlined($color);
+      }
+
+      &:disabled {
+        @include button-base-solid($color, true);
+      }
+    }
+
+    &--is-solid-hover#{$d}--is-#{$name}-hover {
+      &:hover {
+        @include button-base-solid($color);
+      }
+    }
+
+    &--is-solid-pulse-hover#{$d}--is-#{$name}-hover {
+      &:hover {
+        @include button-base-solid($color, true);
+      }
+    }
+  }
+}
+
+@mixin button-style-outlined($colors) {
+  $selector: list.nth(&, 1);
+  $d: list.nth($selector, list.length($selector));
+
+  @each $name, $color in $colors {
+    &--is-outlined#{$d}--is-#{$name} {
+      @include button-base-outlined($color);
+
+      &:hover {
+        @include button-base-solid($color);
+      }
+
+      &:disabled {
+        @include button-base-outlined($color, true);
+      }
+    }
+
+    &--is-outlined-hover#{$d}--is-#{$name}-hover {
+      &:hover {
+        @include button-base-outlined($color);
+      }
+    }
+
+    &--is-outlined-pulse-hover#{$d}--is-#{$name}-hover {
+      &:hover {
+        @include button-base-outlined($color, true);
+      }
+    }
+  }
+}
+
+@mixin button-style-dark($colors) {
+  $selector: list.nth(&, 1);
+  $d: list.nth($selector, list.length($selector));
+
+  @each $name, $color in $colors {
+    &#{$d}--is-dark#{$d}--is-outlined#{$d}--is-#{$name} {
+      &:hover {
+        color: fn.findColorInvert($color, dv.$pure, dv.$neutral-dark);
+      }
+    }
+  }
+
+  &--is-dark#{$d} {
+    &:hover {
+      color: dv.$pure;
+    }
+
+    &:hover .icon svg,
+    &:hover .icon path {
+      //Edge case important use
+      fill: dv.$pure !important;
+    }
+  }
+
+  &--is-dark#{$d}--has-icon {
+    &:hover .icon svg,
+    .icon path {
+      fill: fn.findColorInvert(dv.$text, dv.$pure, dv.$neutral-dark);
+    }
+  }
+
+  &--is-dark#{$d}--is-outlined {
+    color: dv.$pure;
+
+    &:disabled {
+      color: dv.$pure;
+    }
+  }
+}
+
+@mixin button-style-icon-fill($colors) {
+  $selector: list.nth(&, 1);
+  $d: list.nth($selector, list.length($selector));
+
+  @each $name, $color in $colors {
+    &#{$d}--has-icon#{$d}--is-#{$name} {
+      .icon svg,
+      .icon path {
+        fill: fn.findColorInvert($color, dv.$pure, dv.$text);
+      }
+    }
+
+    &#{$d}--has-icon#{$d}--is-#{$name}:hover .icon svg,
+    &#{$d}--has-icon#{$d}--is-#{$name}:hover .icon path {
+      fill: fn.findColorInvert($color, $color, dv.$neutral-dark);
+    }
+  }
+}
+
+@mixin button-style-icon-base {
+  &--has-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    & > .icon {
+      width: auto;
+      padding: 0;
+    }
+
+    .icon {
+      &:last-child {
+        padding-left: 1rem;
+      }
+
+      &:first-child {
+        padding-right: 1rem;
+      }
+
+      &:only-child {
+        padding: 0;
+      }
+    }
+  }
+}
+
+@mixin button-custom-helpers($button-helpers) {
+  @each $helper, $styles in $button-helpers {
+    &--is-#{$helper} {
+      @each $prop, $value in $styles {
+        #{$prop}: #{$value};
+      }
+    }
+  }
+}
+
+@mixin button-base-solid($color, $isFaded: false) {
+  $opacity: 1;
+
+  @if ($isFaded) {
+    $opacity: dv.$button-faded-opacity;
+  }
+
+  background-color: rgba($color, $opacity);
+  border-color: rgba($color, $opacity);
+  color: fn.findColorInvert($color, dv.$pure, dv.$text);
+}
+
+@mixin button-base-outlined($color, $isFaded: false) {
+  $opacity: 1;
+
+  @if ($isFaded) {
+    $opacity: dv.$button-faded-opacity;
+  }
+
+  background-color: transparent;
+  color: fn.findColorInvert($color, $color, dv.$text);
+  border-color: rgba($color, $opacity);
+}

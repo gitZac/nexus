@@ -1,0 +1,21 @@
+@use "../../abstracts/initial-variables" as iv;
+@use "../../abstracts/mixins" as mx;
+
+@mixin container($container-offset, $container-max-width) {
+  flex-grow: 1;
+  margin: 0 auto;
+  position: relative;
+  width: 100%;
+
+  @include mx.from(iv.$desktop) {
+    max-width: iv.$desktop - $container-offset;
+  }
+
+  @include mx.from(iv.$widescreen) {
+    max-width: iv.$widescreen - $container-offset;
+  }
+
+  @include mx.from(iv.$fullhd) {
+    max-width: iv.$fullhd - $container-offset;
+  }
+}

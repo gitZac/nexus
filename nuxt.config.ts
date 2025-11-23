@@ -15,29 +15,16 @@ const runtimeConfig = {
     eventData: process.env.EVENT_DATA,
   },
 };
-const collection = "pages";
 
-const config = {
-  apiBase: runtimeConfig.strapiApiBase,
-};
-
-const strapi = new StrapiApiController(
-  {
-    collection: "pages",
-    slug: "",
-  },
-  config
-);
-
-const data = await strapi.queryEntireCollection(false, collection);
-
+const strapi = new StrapiApiController();
+const data = await strapi.queryEntireCollection(false, "pages");
 const routeList = getSlugListFromArrayAndFormat(data);
 
-routeList.forEach((route) => {
+routeList.forEach((route: any) => {
   generatedRoutes.push(route.apiSlug);
   generatedRoutes.push(route.pageSlug);
-  generatedRoutes.push("/api/event-data/eventbrite/events");
 });
+generatedRoutes.push("/api/event-data/eventbrite/events");
 
 export default defineNuxtConfig({
   css: [

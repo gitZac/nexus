@@ -1,19 +1,15 @@
 import { strapiFetch } from "./utils/strapiFetch";
 
 export default class StrapiApiController {
-  params = {
-    collection: "",
-    slug: "",
+  config = {
+    apiBase: process.env.STRAPI_API_BASE,
+    urlBase: process.env.STRAPI_URL_BASE,
   };
-  config = {};
 
-  constructor(params: any, config: any) {
-    this.params = params;
-    this.config = config;
-  }
+  constructor() {}
 
-  async queryCollectionDataBySlug() {
-    const url = `${this.config.apiBase}/${this.params.collection}?filters[slug]=${this.params.slug}&pLevel`;
+  async queryCollectionDataBySlug(collection: string, slug: string) {
+    const url = `${this.config.apiBase}/${collection}?filters[slug]=${slug}&pLevel`;
     const data = await strapiFetch(url);
 
     return this._transformComponentData(data);

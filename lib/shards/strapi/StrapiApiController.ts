@@ -22,6 +22,35 @@ export default class StrapiApiController {
     return await strapiFetch(url);
   }
 
+  _transformComponentData(payload: any) {
+    const transformed = payload.map((d: any) => {
+      const components = d.components.map((component: any) => {
+        const componentName = this._getFormattedComponentName(
+          component.__component
+        );
+
+        const imageSchemaTransformed =
+          this._filterAndTransformImageSchema(component);
+
+        return {
+          componentName,
+          ...component,
+          ...imageSchemaTransformed,
+        };
+      });
+
+      return {
+        id: d.id,
+        slug: d.slug,
+        components: components,
+      };
+    });
+
+    return {
+      ...transformed[0],
+    };
+  }
+
   _filterAndTransformImageSchema(component: any) {
     //Loop through component fields and check if any have the term 'image'.
     const filteredFields = Object.fromEntries(
@@ -62,34 +91,5 @@ export default class StrapiApiController {
 
     // Remove dash
     return (formattedStr = formattedStr.replace("-", ""));
-  }
-
-  _transformComponentData(payload: any) {
-    const transformed = payload.map((d: any) => {
-      const components = d.components.map((component: any) => {
-        const componentName = this._getFormattedComponentName(
-          component.__component
-        );
-
-        const imageSchemaTransformed =
-          this._filterAndTransformImageSchema(component);
-
-        return {
-          componentName,
-          ...component,
-          ...imageSchemaTransformed,
-        };
-      });
-
-      return {
-        id: d.id,
-        slug: d.slug,
-        components: components,
-      };
-    });
-
-    return {
-      ...transformed[0],
-    };
   }
 }

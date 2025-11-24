@@ -1,7 +1,5 @@
-import { getSlugListFromArrayAndFormat } from "./utils/useSlugHelpers";
-import StrapiApiController from "./lib/shards/strapi/StrapiApiController";
-
-const generatedRoutes: any = [];
+import { generateStrapiRoutes } from "./lib/shards/strapi/utils/generateStrapiRoutes";
+const generatedPageRoutes = await generateStrapiRoutes();
 const runtimeConfig = {
   deployedStore: process.env.DEPLOYED_STORE,
   eventbriteApiKey: process.env.EVENTBRITE_API_KEY,
@@ -16,15 +14,7 @@ const runtimeConfig = {
   },
 };
 
-const strapi = new StrapiApiController();
-const data = await strapi.queryEntireCollection(false, "pages");
-const routeList = getSlugListFromArrayAndFormat(data);
-
-routeList.forEach((route: any) => {
-  generatedRoutes.push(route.apiSlug);
-  generatedRoutes.push(route.pageSlug);
-});
-generatedRoutes.push("/api/event-data/eventbrite/events");
+generatedPageRoutes.push("/api/event-data/eventbrite/events");
 
 export default defineNuxtConfig({
   css: [
@@ -40,7 +30,7 @@ export default defineNuxtConfig({
   runtimeConfig: runtimeConfig,
   nitro: {
     prerender: {
-      routes: generatedRoutes,
+      routes: generatedPageRoutes,
     },
   },
 });

@@ -1,6 +1,6 @@
 <template>
-  <main class="entry" :class="pageSlug == '/' ? 'home' : pageSlug">
-    <div v-if="pageData">
+  <main class="entry dx-helpers" :class="pageSlug == '/' ? 'home' : pageSlug">
+    <div class="" v-if="pageData">
       <DynamicRenderer :componentData="pageData?.components" />
     </div>
     <div v-else class="">We're sorry, we couldn't load your data.</div>

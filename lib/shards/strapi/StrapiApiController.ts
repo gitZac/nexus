@@ -92,4 +92,12 @@ export default class StrapiApiController {
     // Remove dash
     return (formattedStr = formattedStr.replace("-", ""));
   }
+
+  getRegisteredSingleTypeRoutes(globalSettings: any) {
+    const singleTypes = globalSettings.registeredSingleTypes.map(
+      (item: any) => `/api/page-data/strapi/collection/${item.text}`
+    );
+
+    return singleTypes;
+  }
 }

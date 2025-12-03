@@ -29,8 +29,6 @@ $grid-column-widths: fn.mergeHelperMaps(
   $grid-custom-column-widths
 ) !default;
 
-// @debug $grid-column-widths;
-
 .grid {
   @include load.grid($grid-columns);
 }

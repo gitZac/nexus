@@ -60,7 +60,7 @@
             </li>
             <a
               :href="menuData?.ctaButton?.ctaLink"
-              class="button button--is-secondary"
+              class="button button--is-secondary button--is-outlined"
               >{{ menuData?.ctaButton?.ctaText }}</a
             >
           </ul>
@@ -81,6 +81,11 @@
                 >{{ link.text }}</a
               >
             </li>
+            <a
+              :href="menuData?.ctaButton?.ctaLink"
+              class="button button--is-secondary button--is-outlined"
+              >{{ menuData?.ctaButton?.ctaText }}</a
+            >
           </ul>
         </nav>
       </div>
@@ -122,8 +127,11 @@ onMounted(async () => {
 @use "./../../../assets/scss/abstracts/mixins" as dx-mx;
 @use "./../../../assets/scss/abstracts/functions" as dx-fn;
 @use "./../../capybara/assets/scss/variables.scss" as vars;
+@use "sass:list";
 
 .simple-nav {
+  $selector: list.nth(&, 1);
+  $d: list.nth($selector, list.length($selector));
   padding: 0 2rem;
 
   &__logo img {
@@ -178,8 +186,14 @@ onMounted(async () => {
     position: absolute;
     top: 100%;
     width: 100%;
+    text-align: center;
+    padding: 1rem;
     @include dx-mx.from(dx.$desktop) {
       display: none;
+    }
+
+    #{$d}__menu {
+      padding: 1rem;
     }
   }
 

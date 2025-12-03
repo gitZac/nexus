@@ -1,0 +1,12 @@
+@use "./../../../../../assets/scss/elements/loaders/button-loader" as dx-load;
+@use "./../../../../../assets/scss/abstracts/derived-variables" as dv;
+
+.button.button {
+  @include dx-load.button-base;
+  @include dx-load.button-helpers(dv.$doxa-colors);
+
+  text-transform: uppercase;
+  border-radius: 8px;
+  font-size: 1.6rem;
+  font-weight: bold;
+}

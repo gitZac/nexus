@@ -1,5 +1,5 @@
 @use "./variables" as var;
-@use "./../../../../assets/scss" with (
+@use "./../../../../assets/scss/abstracts" with (
   $primary: var.$primary,
   $secondary: var.$secondary,
   $greyscale-dark: var.$greyscale-dark,
@@ -7,6 +7,11 @@
   $font-primary: var.$font-primary,
   $font-secondary: var.$font-primary
 );
-@forward "./base/";
-@forward "./../../../../assets/scss";
+@forward "./base";
+@forward "./elements";
+
+@forward "./../../../../assets/scss/helpers";
+@forward "./../../../../assets/scss/base";
+@forward "./../../../../assets/scss/layout";
+
 @import url("https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap");

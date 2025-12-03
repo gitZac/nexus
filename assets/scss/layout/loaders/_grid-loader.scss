@@ -1,5 +1,4 @@
 @use "../../abstracts/_mixins.scss" as mx;
-@use "sass:math";
 
 @mixin grid($grid-columns) {
   display: grid;

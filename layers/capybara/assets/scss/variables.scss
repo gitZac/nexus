@@ -3,8 +3,14 @@ $green: #bad535;
 $purple: #702b68;
 $dark-purple: #3c0535;
 $golden-years: #c7a554;
+$dz-red: #ef3e36;
+$dz-blue: #0090c5;
+$dark-grey: #666666;
+$black: #000;
 
 // Derived Variables
-$primary: $green;
-$secondary: $dark-purple;
-$utility: $golden-years;
+$primary: $dz-red;
+$secondary: $dz-blue;
+$greyscale-dark: $dark-grey;
+$text: $black;
+$font-primary: "Raleway";

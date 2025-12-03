@@ -12,5 +12,8 @@ export const strapiFetch = async (url: string) => {
     return data;
   } catch (err) {
     console.error(err);
+    console.error(
+      "Something went wrong with strapi fetch. Is the strapi server running?"
+    );
   }
 };

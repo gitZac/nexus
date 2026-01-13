@@ -1,4 +1,5 @@
 import { generateStrapiRoutes } from "./lib/shards/strapi/utils/generateStrapiRoutes";
+import svgLoader from "vite-svg-loader";
 
 const runtimeConfig = {
   deployedStore: process.env.DEPLOYED_STORE,
@@ -34,5 +35,8 @@ export default defineNuxtConfig({
     prerender: {
       routes: generatedPageRoutes,
     },
+  },
+  vite: {
+    plugins: [svgLoader()],
   },
 });

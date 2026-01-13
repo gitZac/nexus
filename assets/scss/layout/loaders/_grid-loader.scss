@@ -1,5 +1,4 @@
 @use "../../abstracts/_mixins.scss" as mx;
-@use "sass:math";
 
 @mixin grid($grid-columns) {
   display: grid;
@@ -23,11 +22,7 @@
 
   @each $name, $div in $grid-column-widths {
     &#{&}--is-#{$name} {
-      @if $name == full {
-        grid-column: span $div;
-      } @else {
-        grid-column: span math.div($grid-columns, $div);
-      }
+      grid-column: span $div;
     }
   }
 
@@ -41,11 +36,7 @@
     @include mx.from($val) {
       @each $name, $div in $grid-column-widths {
         &#{&}--is-#{$name}-#{$breakpoint} {
-          @if $name == full {
-            grid-column: span $div;
-          } @else {
-            grid-column: span math.div($grid-columns, $div);
-          }
+          grid-column: span $div;
         }
       }
 

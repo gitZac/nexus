@@ -1,6 +1,7 @@
 @use "../abstracts/functions" as fn;
 @use "../abstracts/initial-variables" as iv;
 @use "./loaders/" as load;
+@use "sass:math";
 
 $grid-custom-breakpoints: null !default;
 $grid-custom-column-widths: null !default;
@@ -19,9 +20,11 @@ $grid-breakpoints: fn.mergeHelperMaps(
 $grid-column-widths: fn.mergeHelperMaps(
   (
     "full": $grid-columns,
-    "half": 2,
-    "one-third": 3,
-    "one-fourth": 4,
+    "half": math.div($grid-columns, 2),
+    "one-third": math.div($grid-columns, 3),
+    "one-fourth": math.div($grid-columns, 4),
+    "three-fourths": math.div($grid-columns * 3, 4),
+    "two-thirds": math.div($grid-columns * 2, 3),
   ),
   $grid-custom-column-widths
 ) !default;

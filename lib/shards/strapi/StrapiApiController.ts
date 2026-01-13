@@ -1,75 +1,54 @@
+import { strapiFetch } from "./utils/strapiFetch";
+
 export default class StrapiApiController {
-  params = {
-    collection: "",
-    slug: "",
+  config = {
+    apiBase: process.env.STRAPI_API_BASE,
+    urlBase: process.env.STRAPI_URL_BASE,
   };
-  config = {};
 
-  constructor(params: any, config: any) {
-    this.params = params;
-    this.config = config;
-  }
+  constructor() {}
 
-  async queryCollectionDataBySlug() {
-    const url = `${this.config.apiBase}/${this.params.collection}?filters[slug]=${this.params.slug}&pLevel`;
+  async queryCollectionDataBySlug(collection: string, slug: string) {
+    const url = `${this.config.apiBase}/${collection}?filters[slug]=${slug}&pLevel`;
+    const data = await strapiFetch(url);
 
-    try {
-      const response = await fetch(url);
-
-      if (!response.ok) {
-        throw new Error(`Response status: ${response.status}`);
-      }
-
-      const { data } = await response.json();
-
-      const transformed = data.map((d: any) => {
-        const components = d.components.map((component: any) => {
-          const componentName = this._getFormattedComponentName(
-            component.__component
-          );
-
-          const imageSchemaTransformed =
-            this._filterAndTransformImageSchema(component);
-
-          return {
-            componentName,
-            ...component,
-            ...imageSchemaTransformed,
-          };
-        });
-
-        return {
-          id: d.id,
-          slug: d.slug,
-          components: components,
-        };
-      });
-
-      return {
-        ...transformed[0],
-      };
-    } catch (err) {
-      console.log(err);
-    }
+    return this._transformComponentData(data);
   }
 
   async queryEntireCollection(isDeep: Boolean, collection: String) {
     const deepParam = isDeep ? "?pLevel" : "";
     const url = `${this.config?.apiBase}/${collection}${deepParam}`;
 
-    try {
-      const response = await fetch(url);
+    return await strapiFetch(url);
+  }
 
-      if (!response.ok) {
-        throw new Error(`Response status: ${response.status}`);
-      }
+  _transformComponentData(payload: any) {
+    const transformed = payload.map((d: any) => {
+      const components = d.components.map((component: any) => {
+        const componentName = this._getFormattedComponentName(
+          component.__component
+        );
 
-      const { data } = await response.json();
+        const imageSchemaTransformed =
+          this._filterAndTransformImageSchema(component);
 
-      return data;
-    } catch (err) {
-      console.error(err);
-    }
+        return {
+          componentName,
+          ...component,
+          ...imageSchemaTransformed,
+        };
+      });
+
+      return {
+        id: d.id,
+        slug: d.slug,
+        components: components,
+      };
+    });
+
+    return {
+      ...transformed[0],
+    };
   }
 
   _filterAndTransformImageSchema(component: any) {
@@ -112,5 +91,13 @@ export default class StrapiApiController {
 
     // Remove dash
     return (formattedStr = formattedStr.replace("-", ""));
+  }
+
+  getRegisteredSingleTypeRoutes(globalSettings: any) {
+    const singleTypes = globalSettings.registeredSingleTypes.map(
+      (item: any) => `/api/page-data/strapi/collection/${item.text}`
+    );
+
+    return singleTypes;
   }
 }

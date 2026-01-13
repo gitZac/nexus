@@ -1,14 +1,49 @@
 <template>
-  <section class="simple-nav">
+  <section class="simple-footer" :class="getBackgroundColor">
     <div class="container">
       <div class="grid">
-        asjldads aslkdjaskljdalks
-        <pre>
-        {{ menuData }}
-
-        </pre>
-
-        <GlobalIcon icon="github" />
+        <div class="grid-item grid-item--is-half simple-footer__link-wrap">
+          <nav class="simple-footer__link-nav">
+            <ul class="simple-footer__links">
+              <li
+                v-for="link in menuData.footerLinks"
+                class="simple-footer__link-item spacing spacing--is-mb-xsmall"
+              >
+                <a
+                  class="simple-footer__link link link--is-medium link--is-semi-bold has-text-secondary-hover"
+                  :href="link.url"
+                  :class="getTextColor"
+                  >{{ link.text }}</a
+                >
+              </li>
+            </ul>
+          </nav>
+        </div>
+        <div class="grid-item grid-item--is-half simple-footer__social-icons">
+          <ul class="simple-footer__social-icon-list">
+            <li
+              v-for="icon in menuData.socialIcons"
+              class="simple-footer__social-icon-item"
+            >
+              <a
+                :href="icon.link"
+                class="simple-footer__social-icon-link"
+                :class="getTextColor"
+              >
+                <GlobalIcon
+                  :iconColor="'pure'"
+                  :icon="icon.icon"
+                  :iconSize="`medium`"
+                />
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="simple-footer__copyright">
+        <p class="simple-footer__copyright-text copy" :class="getTextColor">
+          {{ menuData.copyrightText }}
+        </p>
       </div>
     </div>
   </section>
@@ -20,15 +55,17 @@ const props = defineProps({
     type: String,
     default: "main-footer",
   },
+  backgroundColor: {
+    type: String,
+    default: "greyscale-dark",
+  },
+  textColor: {
+    type: String,
+    default: "pure",
+  },
 });
-
 const menuData = ref({});
 const config = useRuntimeConfig();
-const navIsOpen = ref(false);
-
-const toggleNav = () => {
-  navIsOpen.value = !navIsOpen.value;
-};
 
 onMounted(async () => {
   try {
@@ -41,6 +78,14 @@ onMounted(async () => {
     console.log(err);
   }
 });
+
+const getBackgroundColor = computed(() => {
+  return `has-background-${props.backgroundColor}`;
+});
+
+const getTextColor = computed(() => {
+  return `has-text-${props.textColor}`;
+});
 </script>
 
 <style lang="scss" scoped>
@@ -50,82 +95,28 @@ onMounted(async () => {
 @use "./../../capybara/assets/scss/variables.scss" as vars;
 @use "sass:list";
 
-.simple-nav {
+.simple-footer {
   $selector: list.nth(&, 1);
   $d: list.nth($selector, list.length($selector));
-  padding: 0 2rem;
+  padding: 10rem 1rem;
 
-  &__logo img {
-    max-width: 100%;
-  }
-
-  &__mobile-controls {
+  &__social-icon-list {
     display: flex;
+    flex-direction: row;
     justify-content: flex-end;
-
-    @include dx-mx.from(dx.$desktop) {
-      display: none;
-    }
   }
 
-  &__menu {
+  &__social-icon-item {
     padding: 0 1rem;
-    list-style-type: none;
-
-    @include dx-mx.from(dx.$desktop) {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      width: 100%;
-    }
   }
 
   &__link {
-    font-weight: 500;
+    text-transform: uppercase;
     text-decoration: none;
   }
 
-  &__close,
-  &__open {
-    height: 2.4rem;
-    width: 2.4rem;
-    fill: vars.$primary;
-    font-weight: bold !important;
-
-    path {
-      stroke-width: 4px;
-    }
-  }
-
-  &__menu-item {
-    @include dx-mx.from(dx.$desktop) {
-      padding: 0 dx-fn.spacer(3);
-    }
-  }
-
-  &__nav--is-mobile {
-    position: absolute;
-    top: 100%;
-    width: 100%;
+  &__copyright-text {
     text-align: center;
-    padding: 1rem;
-    @include dx-mx.from(dx.$desktop) {
-      display: none;
-    }
-
-    #{$d}__menu {
-      padding: 1rem;
-    }
-  }
-
-  &__nav--is-desktop {
-    display: none;
-
-    @include dx-mx.from(dx.$desktop) {
-      display: flex;
-      align-items: center;
-      width: 100%;
-    }
   }
 }
 </style>

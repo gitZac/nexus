@@ -22,22 +22,9 @@ const props = defineProps({
     type: String,
     default: "small",
     validator(value) {
-      const values = [
-        "xxsmall",
-        "xsmall",
-        "small",
-        "medium",
-        "large",
-        "xlarge",
-        "xxlarge",
-        "xxxlarge",
-      ];
+      const values = ["small", "medium", "large"];
       return values.includes(value);
     },
-  },
-  equalSize: {
-    type: Boolean,
-    default: false,
   },
   extraClass: {
     type: String,

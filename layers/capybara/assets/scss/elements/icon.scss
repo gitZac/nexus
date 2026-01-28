@@ -1,0 +1,38 @@
+@use "./../../../../../assets/scss/abstracts/derived-variables" as dx-var;
+
+.icon {
+  svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  &--is-medium {
+    svg {
+      width: 30px;
+      height: 30px;
+    }
+  }
+
+  &--is-large {
+    svg {
+      width: 40px;
+      height: 40px;
+    }
+  }
+
+  &--is-small {
+    svg {
+      width: 15px;
+      height: 15px;
+    }
+  }
+
+  @each $role, $color in dx-var.$doxa-colors {
+    &--is-#{$role} {
+      svg,
+      path {
+        fill: $color;
+      }
+    }
+  }
+}

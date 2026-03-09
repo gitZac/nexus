@@ -10,6 +10,7 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
+    "@atria-digital-marketing/doxa": "^0.2.0",
     "dotenv": "^16.6.0",
     "nuxt": "^3.14.159",
     "vue": "latest",

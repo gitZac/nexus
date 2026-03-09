@@ -7,8 +7,8 @@
   $font-primary: var.$font-primary,
   $font-secondary: var.$font-primary
 );
-@forward "./base";
-@forward "./elements";
+// @forward "./base";
+// @forward "./elements";
 
 @forward "./../../../../assets/scss/helpers";
 @forward "./../../../../assets/scss/base";

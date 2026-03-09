@@ -18,7 +18,7 @@ onMounted(async () => {
     await nextTick();
 
     const { data } = await useFetch(
-      `/api/page-data/${config.public.pageData}/${pageSlug}`
+      `/api/page-data/${config.public.pageData}/${pageSlug}`,
     );
 
     pageData.value = data.value;

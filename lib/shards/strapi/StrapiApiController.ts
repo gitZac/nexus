@@ -26,7 +26,7 @@ export default class StrapiApiController {
     const transformed = payload.map((d: any) => {
       const components = d.components.map((component: any) => {
         const componentName = this._getFormattedComponentName(
-          component.__component
+          component.__component,
         );
 
         const imageSchemaTransformed =
@@ -55,8 +55,9 @@ export default class StrapiApiController {
     //Loop through component fields and check if any have the term 'image'.
     const filteredFields = Object.fromEntries(
       Object.entries(component).filter(([key, value]) => {
+        console.log(key, typeof value);
         return key.toLowerCase().includes("image");
-      })
+      }),
     );
 
     //Loop through our found objects and transform the schema.
@@ -95,7 +96,7 @@ export default class StrapiApiController {
 
   getRegisteredSingleTypeRoutes(globalSettings: any) {
     const singleTypes = globalSettings.registeredSingleTypes.map(
-      (item: any) => `/api/page-data/strapi/collection/${item.text}`
+      (item: any) => `/api/page-data/strapi/collection/${item.text}`,
     );
 
     return singleTypes;

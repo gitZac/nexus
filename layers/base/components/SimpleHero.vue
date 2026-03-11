@@ -1,6 +1,9 @@
 <template>
   <section class="simple-hero">
     <div class="container">
+      <pre>
+        {{ props }}
+      </pre>
       <div class="simple-hero__flex-wrap grid">
         <div class="simple-hero__content grid-item grid-item--is-half-desktop">
           <h1

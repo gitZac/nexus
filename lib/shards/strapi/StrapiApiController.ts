@@ -1,4 +1,5 @@
 import { strapiFetch } from "./utils/strapiFetch";
+import { strapiSchemaMigrator } from "./utils/StrapiSchemaMigrator";
 
 export default class StrapiApiController {
   config = {
@@ -22,20 +23,29 @@ export default class StrapiApiController {
     return await strapiFetch(url);
   }
 
+  getRegisteredSingleTypeRoutes(globalSettings: any) {
+    const singleTypes = globalSettings.registeredSingleTypes.map(
+      (item: any) => `/api/page-data/strapi/collection/${item.text}`,
+    );
+
+    return singleTypes;
+  }
+
   _transformComponentData(payload: any) {
     const transformed = payload.map((d: any) => {
       const components = d.components.map((component: any) => {
         const componentName = this._getFormattedComponentName(
-          component.__component
+          component.__component,
         );
 
-        const imageSchemaTransformed =
-          this._filterAndTransformImageSchema(component);
+        const componentImageSchemaTransformed = this._filterAndTransformSchema(
+          component,
+          "image",
+        );
 
         return {
           componentName,
-          ...component,
-          ...imageSchemaTransformed,
+          ...componentImageSchemaTransformed,
         };
       });
 
@@ -51,31 +61,44 @@ export default class StrapiApiController {
     };
   }
 
-  _filterAndTransformImageSchema(component: any) {
-    //Loop through component fields and check if any have the term 'image'.
-    const filteredFields = Object.fromEntries(
-      Object.entries(component).filter(([key, value]) => {
-        return key.toLowerCase().includes("image");
-      })
-    );
+  _filterAndTransformSchema(
+    component: any,
+    schemaKey: keyof typeof strapiSchemaMigrator,
+  ) {
+    const updatedFields: Record<string, any> = {};
 
-    //Loop through our found objects and transform the schema.
-    Object.keys(filteredFields).forEach((key) => {
-      filteredFields[key] = this._migrateImageSchema(filteredFields[key]);
-    });
+    for (const [key, value] of Object.entries(component)) {
+      if (Array.isArray(value)) {
+        const transformed = this._deepTransformObjectArray(value, schemaKey);
+        if (transformed) updatedFields[key] = transformed;
+      } else if (key.toLowerCase().includes(schemaKey)) {
+        updatedFields[key] = strapiSchemaMigrator[schemaKey](value);
+      }
+    }
 
-    return filteredFields;
+    return { ...component, ...updatedFields };
   }
 
-  _migrateImageSchema(oldSchema: any) {
-    if (!oldSchema) return {};
-    const newSchema = {
-      name: oldSchema.name,
-      alt: oldSchema.alternativeText,
-      url: oldSchema.url,
-    };
+  _deepTransformObjectArray(
+    arr: any[],
+    searchKey: keyof typeof strapiSchemaMigrator,
+  ) {
+    const result: any[] = [];
 
-    return newSchema;
+    for (const item of arr) {
+      //If the object does not have the searchKey, skip the array.
+      if (!Object.prototype.hasOwnProperty.call(item, searchKey)) continue;
+
+      const updatedItem = { ...item };
+      for (const key of Object.keys(updatedItem)) {
+        if (key.includes("image")) {
+          updatedItem[key] = strapiSchemaMigrator[searchKey](updatedItem[key]);
+        }
+      }
+      result.push(updatedItem);
+    }
+
+    return result.length ? result : null;
   }
 
   _getFormattedComponentName(component: string) {
@@ -91,13 +114,5 @@ export default class StrapiApiController {
 
     // Remove dash
     return (formattedStr = formattedStr.replace("-", ""));
-  }
-
-  getRegisteredSingleTypeRoutes(globalSettings: any) {
-    const singleTypes = globalSettings.registeredSingleTypes.map(
-      (item: any) => `/api/page-data/strapi/collection/${item.text}`
-    );
-
-    return singleTypes;
   }
 }

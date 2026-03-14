@@ -26,7 +26,7 @@
           class="simple-hero__image-wrap grid-item grid-item--is-half-desktop"
         >
           <img
-            :src="`${config.public.strapiUrlBase}${props?.heroImage?.url}`"
+            :src="`${props?.heroImage?.url}`"
             alt=""
             class="simple-hero__image"
           />
@@ -37,8 +37,6 @@
 </template>
 
 <script setup>
-const config = useRuntimeConfig();
-
 const props = defineProps({
   mainTitle: {
     type: Text,

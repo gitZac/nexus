@@ -1,15 +1,29 @@
 <template>
-  <section class="multi-content-boxes">
-    <pre>
-    {{ props }}
+  <section
+    :class="darkThemeClasses"
+    class="multi-content-boxes has-background-neutral-dark"
+  >
+    <div class="container">
+      <div class="multi-content-boxes__wrapper"></div>
+      <h2
+        class="heading heading--is-level-2 heading--is-semi-bold has-text-secondary multi-content-boxes__main-heading"
+      >
+        {{ props.sectionTitle }}
+      </h2>
 
-    </pre>
+      <div class="multi-content-boxes__boxes-wrap grid">
+        <div
+          class="grid-item grid-item--is-one-third-desktop"
+          v-for="box in props.contentBox"
+        >
+          <ContentBox :box="box" />
+        </div>
+      </div>
+    </div>
   </section>
 </template>
 
 <script setup>
-const config = useRuntimeConfig();
-
 const props = defineProps({
   sectionTitle: {
     type: String,
@@ -25,25 +39,25 @@ const props = defineProps({
   },
 });
 
-const getCtaRoles = (roles) => {
-  const computedRoles = [];
-
-  roles.forEach((role) => {
-    computedRoles.push(`button--is-${role.item}`);
-  });
-
-  return computedRoles;
-};
+const darkThemeClasses = computed(() => {
+  return props.isDarkTheme ? "multi-content-boxes--is-dark-theme" : "";
+});
 </script>
 
-<style lang="scss" scoped>
-@use "./../../../assets/scss/abstracts/initial-variables" as dx;
+<style lang="scss">
+@use "./../../../assets/scss/abstracts" as dx;
 @use "./../../../assets/scss/abstracts/mixins" as dx-mx;
 @use "./../../../assets/scss/abstracts/functions" as dx-fn;
 @use "./../../capybara/assets/scss/variables.scss" as vars;
 @use "sass:list";
 
-.simple-hero {
+.multi-content-boxes {
+  padding: dx-fn.spacer(4) 0;
+
+  &__main-heading {
+    text-align: center;
+    margin-bottom: dx-fn.spacer(4);
+  }
   &__content {
     display: flex;
     flex-direction: column;
@@ -82,6 +96,13 @@ const getCtaRoles = (roles) => {
     @include dx-mx.from(dx.$desktop) {
       padding: 0;
     }
+  }
+}
+
+.multi-content-boxes.multi-content-boxes--is-dark-theme {
+  .copy,
+  .heading {
+    color: dx.$pure;
   }
 }
 </style>

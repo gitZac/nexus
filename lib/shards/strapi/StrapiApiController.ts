@@ -101,17 +101,6 @@ export default class StrapiApiController {
     return result.length ? result : null;
   }
 
-  _migrateImageSchema(oldSchema: any) {
-    if (!oldSchema) return {};
-    const newSchema = {
-      name: oldSchema.name,
-      alt: oldSchema.alternativeText,
-      url: oldSchema.url,
-    };
-
-    return newSchema;
-  }
-
   _getFormattedComponentName(component: string) {
     const capRegex = /(\b[a-z](?!\s))/g;
     const formatRegex = /^.*\./g;

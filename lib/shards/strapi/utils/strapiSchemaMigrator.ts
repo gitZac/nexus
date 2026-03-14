@@ -5,7 +5,7 @@ export const strapiSchemaMigrator = {
     return {
       name: oldSchema.name,
       alt: oldSchema.alternativeText,
-      url: oldSchema.url,
+      url: `${process.env.STRAPI_URL_BASE}${oldSchema.url}`,
     };
   },
 };

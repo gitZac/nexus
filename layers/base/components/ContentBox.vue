@@ -27,10 +27,10 @@
 </template>
 
 <script setup lang="ts">
-const getCtaRoles = (roles) => {
-  const computedRoles = [];
+const getCtaRoles = (roles: any) => {
+  const computedRoles: any[] = [];
 
-  roles.forEach((role) => {
+  roles.forEach((role: any) => {
     computedRoles.push(`button--is-${role.item}`);
   });
 

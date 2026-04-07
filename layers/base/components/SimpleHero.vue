@@ -11,6 +11,7 @@
           <p class="copy simple-hero__intro spacing spacing--is-mb-small">
             {{ copy }}
           </p>
+
           <div class="simple-hero__ctas">
             <a
               v-for="button in props.heroCta"
@@ -39,11 +40,11 @@
 <script setup>
 const props = defineProps({
   mainTitle: {
-    type: Text,
+    type: String,
   },
   heroImage: {},
   copy: {
-    type: Text,
+    type: String,
   },
   heroCta: {},
   isTwoCol: {
@@ -52,15 +53,15 @@ const props = defineProps({
   },
 });
 
-const getCtaRoles = (roles) => {
-  const computedRoles = [];
+const getCtaRoles = computed(() => {
+  return (roles) => {
+    if (!roles.length) {
+      return ["button--is-disabled"];
+    }
 
-  roles.forEach((role) => {
-    computedRoles.push(`button--is-${role.item}`);
-  });
-
-  return computedRoles;
-};
+    return roles.map((role) => `button--is-${role.item}`);
+  };
+});
 </script>
 
 <style lang="scss" scoped>

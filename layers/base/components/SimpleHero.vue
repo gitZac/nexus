@@ -38,6 +38,8 @@
 </template>
 
 <script setup>
+import { useUtilityClassHelpers } from "~/composables/utilityClassHelpers";
+
 const props = defineProps({
   mainTitle: {
     type: String,
@@ -53,13 +55,11 @@ const props = defineProps({
   },
 });
 
+const utilities = useUtilityClassHelpers();
+
 const getCtaRoles = computed(() => {
   return (roles) => {
-    if (!roles.length) {
-      return ["button--is-disabled"];
-    }
-
-    return roles.map((role) => `button--is-${role.item}`);
+    return utilities.parseCtaRoles(roles);
   };
 });
 </script>

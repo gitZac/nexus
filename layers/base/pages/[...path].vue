@@ -22,8 +22,6 @@ onMounted(async () => {
     );
 
     pageData.value = data.value;
-
-    console.log(pageData.value);
   } catch (err) {
     console.log(err);
   }

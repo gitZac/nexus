@@ -67,17 +67,15 @@ const props = defineProps({
 const menuData = ref({});
 const config = useRuntimeConfig();
 
-onMounted(async () => {
-  try {
-    const { data } = await useFetch(
-      `/api/page-data/${config.public.pageData}/collection/${props.menuCollection}`
-    );
+try {
+  const { data } = await useFetch(
+    `/api/page-data/${config.public.pageData}/collection/${props.menuCollection}`,
+  );
 
-    menuData.value = data.value;
-  } catch (err) {
-    console.log(err);
-  }
-});
+  menuData.value = data.value;
+} catch (err) {
+  console.log(err);
+}
 
 const getBackgroundColor = computed(() => {
   return `has-background-${props.backgroundColor}`;

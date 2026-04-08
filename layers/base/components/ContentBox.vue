@@ -27,15 +27,13 @@
 </template>
 
 <script setup lang="ts">
-const getCtaRoles = (roles) => {
-  const computedRoles = [];
+const utilities = useUtilityClassHelpers();
 
-  roles.forEach((role) => {
-    computedRoles.push(`button--is-${role.item}`);
-  });
-
-  return computedRoles;
-};
+const getCtaRoles = computed(() => {
+  return (roles: any) => {
+    return utilities.parseCtaRoles(roles);
+  };
+});
 
 const props = defineProps({
   box: {

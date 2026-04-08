@@ -11,6 +11,7 @@
           <p class="copy simple-hero__intro spacing spacing--is-mb-small">
             {{ copy }}
           </p>
+
           <div class="simple-hero__ctas">
             <a
               v-for="button in props.heroCta"
@@ -37,13 +38,15 @@
 </template>
 
 <script setup>
+import { useUtilityClassHelpers } from "~/composables/utilityClassHelpers";
+
 const props = defineProps({
   mainTitle: {
-    type: Text,
+    type: String,
   },
   heroImage: {},
   copy: {
-    type: Text,
+    type: String,
   },
   heroCta: {},
   isTwoCol: {
@@ -52,15 +55,13 @@ const props = defineProps({
   },
 });
 
-const getCtaRoles = (roles) => {
-  const computedRoles = [];
+const utilities = useUtilityClassHelpers();
 
-  roles.forEach((role) => {
-    computedRoles.push(`button--is-${role.item}`);
-  });
-
-  return computedRoles;
-};
+const getCtaRoles = computed(() => {
+  return (roles) => {
+    return utilities.parseCtaRoles(roles);
+  };
+});
 </script>
 
 <style lang="scss" scoped>
